@@ -1,0 +1,16 @@
+{
+  "users": [
+    {
+      "id": 781358518,
+      "role": "admin",
+      "name": "admin",
+      "email": "admin@gmail.com",
+      "phoneNumber": "0123456789",
+      "password": "$2a$10$xfX.vPvFjgE6oBuOa2giu./gs.CONouupWhGJP4eZPtIgvwWXhE66",
+      "cart": []
+    }
+  ],
+  "categories": [],
+  "products": [],
+  "comments": []
+}
