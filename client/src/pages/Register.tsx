@@ -60,6 +60,7 @@ export default function Register() {
                     phoneNumber: phoneNumber,
                     password: bcrypt.hashSync(password, 10),
                     cart: [],
+                    status: true
                 };
                 try {
                     await axios.post('http://localhost:8080/users', user);

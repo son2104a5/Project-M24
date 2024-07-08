@@ -1,23 +1,13 @@
-export default function Category() {
+export default function Recommend() {
   return (
     <div>
       <div className="flex justify-between items-center mb-5 mt-5">
-        <strong className="text-3xl">Danh sách danh mục:</strong>
-        <div className='flex gap-5'>
-          <select name="" id="" className="w-[170px] border-2 rounded p-1">
-            <option value="" hidden>Sắp xếp</option>
-            <option value="">Theo tuổi (tăng dần)</option>
-            <option value="">Theo tuổi (giảm dần)</option>
-          </select>
-          <input
-            className="border-slate-200 border-2 rounded p-1 w-[270px] bg-transparent"
-            type="text"
-            placeholder="Tìm kiếm..."
-          />
-          <button className="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
-            Thêm mới
-          </button>
-        </div>
+        <strong className="text-3xl">Danh sách phản hồi:</strong>
+        <select name="" id="" className="w-[170px] border-2 rounded p-1">
+          <option value="" hidden>Sắp xếp</option>
+          <option value="">Theo tuổi (tăng dần)</option>
+          <option value="">Theo tuổi (giảm dần)</option>
+        </select>
       </div>
       <table className="min-w-full bg-white border border-gray-200 rounded-lg shadow-md">
         <thead>

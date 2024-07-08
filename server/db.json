@@ -7,6 +7,7 @@
       "email": "admin@gmail.com",
       "phoneNumber": "0123456789",
       "password": "$2a$10$xfX.vPvFjgE6oBuOa2giu./gs.CONouupWhGJP4eZPtIgvwWXhE66",
+      "status": true,
       "cart": []
     },
     {
@@ -16,10 +17,12 @@
       "email": "sonnguyen21804@gmail.com",
       "phoneNumber": "0354331215",
       "password": "$2a$10$voCau3NBBeMQKxrzZgGnXO4nDxMZKXwhrOHnN/p.WlWGzme0a5g6K",
+      "status": true,
       "cart": []
     }
   ],
   "categories": [],
   "products": [],
-  "comments": []
+  "comments": [],
+  "orders": []
 }
