@@ -3,10 +3,11 @@ import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import bcrypt from "bcryptjs-react"
 
-export default function Login() {
+export default function LoginAdmin() {
     const navigate = useNavigate()
     const checkUser = useLocation()
     const [check, setCheck] = useState<string>('none')
+    const [adminAcc, setAdminAcc] = useState<string>('none')
     const [checkEmailInput, setCheckEmailInput] = useState<string>('none')
     const [checkPasswordInput, setCheckPasswordInput] = useState<string>('none')
 
@@ -29,21 +30,23 @@ export default function Login() {
             setCheckEmailInput('none')
             setCheckPasswordInput('none')
             let checkEmailResponse = await axios.get(`http://localhost:8080/users?email_like=${email}`);
-            if(checkEmailResponse.data.length === 0){
-                setCheck('block')
-            }else {
+            if(checkEmailResponse.data[0].role === 'Admin'){
                 if(checkEmailResponse.data.length === 0){
                     setCheck('block')
                 }else {
-                    bcrypt.compare(password, checkEmailResponse.data[0].password, function(err, result) {
-                        if(result){
-                            navigate('/')
-                        }else{
-                            setCheck('block')
-                        }
-                    })
+                    if(checkEmailResponse.data.length === 0){
+                        setCheck('block')
+                    }else {
+                        bcrypt.compare(password, checkEmailResponse.data[0].password, function(err, result) {
+                            if(result){
+                                navigate('/admin')
+                            }else{
+                                setCheck('block')
+                            }
+                        })
+                    }
                 }
-            }
+            }else setAdminAcc('block')
         }
     }
   return (
@@ -62,6 +65,7 @@ export default function Login() {
                 >
                     * Email không được để trống
                 </div>
+                
                 <div className="w-[400px] flex justify-between mb-[20px]">
                     <label className="">Mật khẩu:</label>
                     <input className="border-slate-200 border-2 rounded p-1 w-[270px] bg-transparent" type="password" value={password} name="password" onChange={inputValueChange}/>
@@ -80,10 +84,17 @@ export default function Login() {
                 >
                     * Email hoặc mật khẩu không tồn tại!
                 </div>
+                <div
+                    className="flex mb-5 text-red-500 ml-4"
+                    role="alert"
+                    style={{ display: `${adminAcc}` }}
+                >
+                    * Không phải tài khoản admin
+                </div>
                 <div>
                     <Link to={'/'}><button type="submit" className="bg-blue-600 text-white p-2 pl-8 pr-8 mb-3 rounded hover:opacity-80" onClick={submitUser}>Đăng nhập</button></Link>
                 </div>
-                <p className="">Bạn chưa có tài khoản? <Link to={'/register'} className="hover:text-blue-600 ">Đăng ký ngay!</Link></p>
+                <p className="">Tạo tài khoản admin? <Link to={'/admin/register'} className="hover:text-blue-600 ">Đăng ký ngay!</Link></p>
             </form>
         </div>
     </div>

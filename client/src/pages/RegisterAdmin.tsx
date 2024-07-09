@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { User } from "../interface";
 
-export default function Register() {
+export default function RegisterAdmin() {
     useEffect(()=>{
        
     }, [])
@@ -54,7 +54,7 @@ export default function Register() {
             if (checkEmailResponse.data.length === 0) {
                 let user: User = {
                     id: Math.floor(Math.random() * 1000000000),
-                    role: 'User',
+                    role: 'Admin',
                     name: username,
                     email: email,
                     phoneNumber: phoneNumber,
@@ -68,7 +68,7 @@ export default function Register() {
                     setCheckEmail('none');
                     setCheckPassword('none');
                     setCheckEmailHasRegistered('none');
-                    navigate('/login', { state: user });
+                    navigate('admin/login', { state: user });
                 } catch (error) {
                     console.error(error);
                 }
@@ -129,7 +129,7 @@ export default function Register() {
                 <div>
                     <button type="submit" className="bg-blue-600 text-white p-2 pl-10 pr-10 mb-3 rounded hover:opacity-80" onClick={saveUser}>Đăng ký</button>
                 </div>
-                <p className="">Bạn đã có tài khoản? <Link to={'/login'} className="hover:text-blue-600">Đăng nhập</Link></p>
+                <p className="">Đã có tài khoản admin? <Link to={'/admin/login'} className="hover:text-blue-600">Đăng nhập</Link></p>
             </form>
         </div>
 

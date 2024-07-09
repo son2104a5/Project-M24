@@ -2,7 +2,7 @@
   "users": [
     {
       "id": 781358518,
-      "role": "admin",
+      "role": "Admin",
       "name": "admin",
       "email": "admin@gmail.com",
       "phoneNumber": "0123456789",
@@ -12,7 +12,7 @@
     },
     {
       "id": 197435694,
-      "role": "user",
+      "role": "User",
       "name": "Nguyễn Đắc Sơn",
       "email": "sonnguyen21804@gmail.com",
       "phoneNumber": "0354331215",

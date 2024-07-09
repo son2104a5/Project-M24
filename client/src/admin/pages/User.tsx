@@ -2,13 +2,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { getAllUsers, getLockedUser } from "../../services/users.service";
 import { State, User } from "../../interface";
-import { Modal, Button } from "react-bootstrap";
 
 export default function Profile() {
   const [showModal, setShowModal] = useState(false);
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const dispatch = useDispatch();
-  const user = useSelector((state: State) => state.users);
+  const users = useSelector((state: State) => state.users);
   
   useEffect(() => {
     dispatch(getAllUsers());
@@ -34,8 +33,6 @@ export default function Profile() {
         <div className="flex gap-5">
           <select name="" id="" className="w-[170px] border-2 rounded">
             <option value="" hidden>Sắp xếp</option>
-            <option value="age_asc">Theo tuổi (tăng dần)</option>
-            <option value="age_desc">Theo tuổi (giảm dần)</option>
             <option value="age_desc">Theo trạng thái (Đang hoạt động)</option>
             <option value="age_desc">Theo trạng thái (Ngừng hoạt động)</option>
           </select>
@@ -73,7 +70,7 @@ export default function Profile() {
           </tr>
         </thead>
         <tbody>
-          {user.map((user: User, index: number) => (
+          {users.map((user: User, index: number) => (
             <tr key={user.id} className="bg-white">
               <td className="px-6 py-4 border-b border-gray-200 text-sm">{index + 1}</td>
               <td className="px-6 py-4 border-b border-gray-200 text-sm">{user.name}</td>
@@ -91,8 +88,8 @@ export default function Profile() {
       { showModal ?
         <div className="w-screen h-screen bg-black bg-opacity-40 fixed flex flex-col items-center top-0 right-0 justify-center">
           <div className="flex justify-between bg-white w-1/3 pb-16 pl-4 pr-4 pt-4 border-y-[1px] rounded-t-xl">
-            <h2 className="text-red-500 text-2xl">Xác nhận {selectedUser?.status ? 'khóa' : 'bỏ khóa'} tài khoản {selectedUser?.name} chứ?</h2>
-            <span onClick={handleClose} className="cursor-pointer text-2xl">X</span>
+            <h2 className=" text-2xl">Xác nhận {selectedUser?.status ? 'khóa' : 'bỏ khóa'} tài khoản <span className="text-red-500">{selectedUser?.name}</span> chứ?</h2>
+            <span onClick={handleClose} className="cursor-pointer text-2xl"><i className="fa-solid fa-xmark"></i></span>
           </div>
           <div className="flex justify-end bg-slate-600 w-1/3 p-4 gap-5 rounded-b-xl">
             <button onClick={handleClose} className="bg-white p-2 rounded">Hủy</button><button className="bg-red-500 p-2 rounded text-white" onClick={confirmLockAccount}>Xác nhận</button>

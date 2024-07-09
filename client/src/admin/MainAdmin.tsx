@@ -1,13 +1,13 @@
 import { Link, Outlet } from "react-router-dom";
 
 export default function MainAdmin() {
+  
   return (
     <div className="flex h-screen bg-slate-100">
       <div className="bg-black text-white flex flex-col w-[170px] justify-between h-full text-center pb-6 pl-[20px] pt-4">
         <div>
           <div className="flex flex-col gap-2 items-center pr-4 pb-7">
-            <img src="https://firebasestorage.googleapis.com/v0/b/ptit-son.appspot.com/o/images%2Favatar-trang-4.jpg?alt=media&token=42d35db7-47e1-451d-acd1-8ceced065c6f" alt="" className="w-[50px] h-[50px] rounded-[50%]"/>
-            <span>Welcome admin!</span>
+            <img src="" alt="" />
           </div>
           <div className="flex flex-col gap-5">
             <Link to={'/admin/dashboard'} className="w-[130px] text-left mr-3 p-1 hover:bg-slate-400 flex gap-4 items-center rounded">
@@ -34,7 +34,7 @@ export default function MainAdmin() {
           </div>
         </div>
         <div className="flex flex-col gap-5">
-          <Link to={'/login'} className="w-[130px] text-left hover:bg-slate-400 flex gap-4 items-center p-1 rounded">
+          <Link to={'/admin/login'} className="w-[130px] text-left hover:bg-slate-400 flex gap-4 items-center p-1 rounded">
             <i className="fa-solid fa-right-from-bracket"></i>Logout
           </Link>
         </div>

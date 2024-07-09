@@ -5,7 +5,7 @@ export interface User {
     password: string;
     status: boolean;
     role: string;
-    cart: any[];
+    cart: Cart[];
     phoneNumber: string;
   }
   
@@ -57,6 +57,5 @@ export interface User {
     products: Product[];
     categories: Category[];
     orders: Order[];
-    carts: Cart[];
   }
   
