@@ -1,15 +1,14 @@
 import axios from "axios";
 import { useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import bcrypt from "bcryptjs-react"
 
 export default function Login() {
     const navigate = useNavigate()
-    const checkUser = useLocation()
     const [check, setCheck] = useState<string>('none')
     const [checkEmailInput, setCheckEmailInput] = useState<string>('none')
     const [checkPasswordInput, setCheckPasswordInput] = useState<string>('none')
-
+    const [checkStatus, setCheckStatus] = useState<boolean>(false)
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
     const inputValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,18 +30,21 @@ export default function Login() {
             let checkEmailResponse = await axios.get(`http://localhost:8080/users?email_like=${email}`);
             if(checkEmailResponse.data.length === 0){
                 setCheck('block')
-            }else {
+            } else if (checkEmailResponse.data[0].status) {
                 if(checkEmailResponse.data.length === 0){
                     setCheck('block')
                 }else {
                     bcrypt.compare(password, checkEmailResponse.data[0].password, function(err, result) {
                         if(result){
                             navigate('/')
+                            localStorage.setItem('userHasLogin', JSON.stringify(email))
                         }else{
                             setCheck('block')
                         }
                     })
                 }
+            } else {
+                setCheckStatus(true)
             }
         }
     }
@@ -79,6 +81,13 @@ export default function Login() {
                     style={{ display: `${check}` }}
                 >
                     * Email hoặc mật khẩu không tồn tại!
+                </div>
+                <div
+                    className="flex mb-5 text-red-500 ml-4"
+                    role="alert"
+                    style={{ display: `${checkStatus ? 'block' : 'none'}` }}
+                >
+                    * Tài khoản đã bị khóa!
                 </div>
                 <div>
                     <Link to={'/'}><button type="submit" className="bg-blue-600 text-white p-2 pl-8 pr-8 mb-3 rounded hover:opacity-80" onClick={submitUser}>Đăng nhập</button></Link>

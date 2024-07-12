@@ -10,11 +10,9 @@ const usersSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getAllUsers.pending, (state) => {})
       .addCase(getAllUsers.fulfilled, (state, action) => {
         return action.payload;
       })
-      .addCase(getAllUsers.rejected, (state, action) => {})
       .addCase(getLockedUser.fulfilled, (state, action) => {
         return state.map((user: User) =>
           user.id === action.payload.id ? action.payload : user

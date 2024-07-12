@@ -38,6 +38,7 @@ export default function Categories() {
           createdAt: new Date(),
           updatedAt: ''
         }))
+        dispatch(getAllCategories())
         setInputValue('')
         setOpenForm(false)
       } else {
@@ -50,6 +51,7 @@ export default function Categories() {
           updatedAt: new Date()
         }
         dispatch(updateCategory(updateData))
+        dispatch(getAllCategories())
         setInputValue('')
         setOpenForm(false)
       }
@@ -65,6 +67,7 @@ export default function Categories() {
   const confirmDelete = () => {
     if(selectedCategory){
       dispatch(deleteCategory(selectedCategory.id))
+      dispatch(getAllCategories())
       handleClose()
     }
   }
@@ -122,7 +125,7 @@ export default function Categories() {
                           {new Date(category.createdAt).toLocaleDateString()}
                         </td>
                         <td className="px-6 py-4 border-b border-gray-200 text-sm">
-                          {category.updatedAt !== '' ? new Date(category.updatedAt).toLocaleDateString() : 'Invalid date'}
+                          {category.updatedAt !== '' ? new Date(category.updatedAt).toLocaleDateString() : '-'}
                         </td>
                         <td className="px-6 py-4 border-b border-gray-200 text-sm flex gap-5 ml-4">
                           <i className="fa-regular fa-pen-to-square text-blue-600 hover:opacity-70" onClick={()=>formCategory('edit', category)}></i>

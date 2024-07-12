@@ -60,7 +60,9 @@ export default function Register() {
                     phoneNumber: phoneNumber,
                     password: bcrypt.hashSync(password, 10),
                     cart: [],
-                    status: true
+                    status: true,
+                    avatar: "https://firebasestorage.googleapis.com/v0/b/ptit-son.appspot.com/o/images%2Favatar-trang-4.jpg?alt=media&token=42d35db7-47e1-451d-acd1-8ceced065c6f",
+                    address: ""
                 };
                 try {
                     await axios.post('http://localhost:8080/users', user);

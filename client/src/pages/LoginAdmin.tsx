@@ -1,17 +1,16 @@
 import axios from "axios";
 import { useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import bcrypt from "bcryptjs-react"
 
 export default function LoginAdmin() {
     const navigate = useNavigate()
-    const checkUser = useLocation()
     const [check, setCheck] = useState<string>('none')
     const [adminAcc, setAdminAcc] = useState<string>('none')
     const [checkEmailInput, setCheckEmailInput] = useState<string>('none')
     const [checkPasswordInput, setCheckPasswordInput] = useState<string>('none')
-
-    const [email, setEmail] = useState<string>('')
+    const [checkStatus, setCheckStatus] = useState<boolean>(false)
+    const [email, setEmail] = useState<any>('')
     const [password, setPassword] = useState<string>('')
     const inputValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if(e.target.name === 'email'){
@@ -34,12 +33,13 @@ export default function LoginAdmin() {
                 if(checkEmailResponse.data.length === 0){
                     setCheck('block')
                 }else {
-                    if(checkEmailResponse.data.length === 0){
-                        setCheck('block')
+                    if(!checkEmailResponse.data[0].status){
+                        setCheckStatus(true)
                     }else {
                         bcrypt.compare(password, checkEmailResponse.data[0].password, function(err, result) {
                             if(result){
                                 navigate('/admin')
+                                localStorage.setItem('userHasLogin', JSON.stringify(email))
                             }else{
                                 setCheck('block')
                             }
@@ -91,10 +91,17 @@ export default function LoginAdmin() {
                 >
                     * Không phải tài khoản admin
                 </div>
+                <div
+                    className="flex mb-5 text-red-500 ml-4"
+                    role="alert"
+                    style={{ display: `${checkStatus ? 'block' : 'none'}` }}
+                >
+                    * Tài khoản đã bị khóa!
+                </div>
                 <div>
                     <Link to={'/'}><button type="submit" className="bg-blue-600 text-white p-2 pl-8 pr-8 mb-3 rounded hover:opacity-80" onClick={submitUser}>Đăng nhập</button></Link>
                 </div>
-                <p className="">Tạo tài khoản admin? <Link to={'/admin/register'} className="hover:text-blue-600 ">Đăng ký ngay!</Link></p>
+                <p className="">Tạo tài khoản admin? <Link to={'register'} className="hover:text-blue-600 ">Đăng ký ngay!</Link></p>
             </form>
         </div>
     </div>

@@ -60,7 +60,9 @@ export default function RegisterAdmin() {
                     phoneNumber: phoneNumber,
                     password: bcrypt.hashSync(password, 10),
                     cart: [],
-                    status: true
+                    status: true,
+                    avatar: "https://firebasestorage.googleapis.com/v0/b/ptit-son.appspot.com/o/images%2Favatar-trang-4.jpg?alt=media&token=42d35db7-47e1-451d-acd1-8ceced065c6f",
+                    address: ""
                 };
                 try {
                     await axios.post('http://localhost:8080/users', user);
@@ -68,7 +70,7 @@ export default function RegisterAdmin() {
                     setCheckEmail('none');
                     setCheckPassword('none');
                     setCheckEmailHasRegistered('none');
-                    navigate('admin/login', { state: user });
+                    navigate('/admin/login', { state: user });
                 } catch (error) {
                     console.error(error);
                 }
@@ -129,7 +131,7 @@ export default function RegisterAdmin() {
                 <div>
                     <button type="submit" className="bg-blue-600 text-white p-2 pl-10 pr-10 mb-3 rounded hover:opacity-80" onClick={saveUser}>Đăng ký</button>
                 </div>
-                <p className="">Đã có tài khoản admin? <Link to={'/admin/login'} className="hover:text-blue-600">Đăng nhập</Link></p>
+                <p className="">Đã có tài khoản admin? <Link to={'login'} className="hover:text-blue-600">Đăng nhập</Link></p>
             </form>
         </div>
 

@@ -1,27 +1,68 @@
 {
   "users": [
     {
-      "id": 781358518,
+      "id": 130171184,
       "role": "Admin",
-      "name": "admin",
-      "email": "admin@gmail.com",
-      "phoneNumber": "0123456789",
-      "password": "$2a$10$xfX.vPvFjgE6oBuOa2giu./gs.CONouupWhGJP4eZPtIgvwWXhE66",
-      "status": true,
-      "cart": []
-    },
-    {
-      "id": 197435694,
-      "role": "User",
       "name": "Nguyễn Đắc Sơn",
       "email": "sonnguyen21804@gmail.com",
       "phoneNumber": "0354331215",
-      "password": "$2a$10$voCau3NBBeMQKxrzZgGnXO4nDxMZKXwhrOHnN/p.WlWGzme0a5g6K",
+      "password": "$2a$10$Ada2t6OUFXcbnrMbIVyKbeaE4SUWYVZFOpaRDmqI3qwzVKWyO5P3i",
+      "cart": [],
       "status": true,
-      "cart": []
+      "avatar": "https://firebasestorage.googleapis.com/v0/b/ptit-son.appspot.com/o/images%2Favatar-trang-4.jpg?alt=media&token=42d35db7-47e1-451d-acd1-8ceced065c6f",
+      "address": ""
+    },
+    {
+      "id": 140499350,
+      "role": "User",
+      "name": "Nguyễn Văn A",
+      "email": "a@gmail.com",
+      "phoneNumber": "0612892124",
+      "password": "$2a$10$DK7DTvF/wxoNCMP2Khosc.kAEXVv1a4KIRkCNAfT6zwAiC9HdYW2u",
+      "cart": [],
+      "status": true,
+      "avatar": "https://firebasestorage.googleapis.com/v0/b/ptit-son.appspot.com/o/images%2Favatar-trang-4.jpg?alt=media&token=42d35db7-47e1-451d-acd1-8ceced065c6f",
+      "address": ""
     }
   ],
-  "categories": [],
+  "categories": [
+    {
+      "id": 764103463,
+      "name": "Laptop",
+      "createdAt": "2024-07-10T11:21:44.938Z",
+      "updatedAt": ""
+    },
+    {
+      "id": 901520903,
+      "name": "TV",
+      "createdAt": "2024-07-11T08:12:58.272Z",
+      "updatedAt": ""
+    },
+    {
+      "id": 530285219,
+      "name": "Điện thoại di động",
+      "createdAt": "2024-07-12T02:28:16.729Z",
+      "updatedAt": ""
+    },
+    {
+      "id": 3144943,
+      "name": "PC",
+      "createdAt": "2024-07-12T02:28:21.704Z",
+      "updatedAt": ""
+    },
+    {
+      "id": 91175378,
+      "name": "Tablet",
+      "createdAt": "2024-07-12T02:28:36.486Z",
+      "updatedAt": ""
+    },
+    {
+      "id": 351018366,
+      "name": "Phụ kiện",
+      "createdAt": "2024-07-12T02:28:56.618Z",
+      "updatedAt": ""
+    }
+  ],
   "products": [],
   "comments": [],
   "orders": []

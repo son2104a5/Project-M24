@@ -4,8 +4,10 @@ export interface User {
     email: string;
     password: string;
     status: boolean;
+    avatar: string;
+    address: string;
     role: string;
-    cart: Cart[];
+    cart: any[];
     phoneNumber: string;
   }
   
@@ -15,10 +17,12 @@ export interface User {
     price: number;
     description: string;
     image: string;
-    idCategory: string;
+    idCategory: number;
     stock: number;
     createdAt: string;
     updatedAt: string;
+    hasPrice: number;
+    favorite: boolean;
   }
   
   export interface Category {
