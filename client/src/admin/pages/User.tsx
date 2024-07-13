@@ -2,6 +2,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { getAllUsers, getLockedUser } from "../../services/users.service";
 import { State, User } from "../../interface";
+import LoadingOverlay from "../../components/LoadingOverlay";
+import Snackbar from "../../components/Snackbar";
 
 export default function Users() {
   const [showModal, setShowModal] = useState(false);
@@ -13,7 +15,15 @@ export default function Users() {
   const [filterStatus, setFilterStatus] = useState("");
   const dispatch = useDispatch();
   const users = useSelector((state: State) => state.users);
+  const [loading, setLoading] = useState(true);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
 
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000); // Simulate a loading process for 2 seconds
+  }, []);
   useEffect(() => {
     dispatch(getAllUsers());
   }, [dispatch]);
@@ -28,6 +38,7 @@ export default function Users() {
   const confirmLockAccount = () => {
     if (selectedUser) {
       dispatch(getLockedUser(selectedUser));
+      showSnackbar(`${selectedUser.status ? 'Đã khóa' : 'Đã mở khóa'} tài khoản ${selectedUser.name}`)
       handleClose();
     }
   };
@@ -45,6 +56,19 @@ export default function Users() {
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
     setCurrentPage(1);
+  };
+
+  const showSnackbar = (message: string) => {
+    setSnackbarMessage(message);
+    setSnackbarOpen(true);
+    setTimeout(() => {
+      setSnackbarOpen(false);
+    }, 2000);
+  };
+
+  const closeSnackbar = () => {
+    setSnackbarOpen(false);
+    setSnackbarMessage('');
   };
 
   const filteredUsers = users
@@ -86,8 +110,7 @@ export default function Users() {
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-5 mt-5">
-        <strong className="text-3xl">Danh sách người dùng:</strong>
+      <div className="flex justify-end items-center mb-5 mt-5">
         <div className="flex gap-5">
           <select onChange={handleSort} value={sortKey} className="w-[170px] border-2 rounded p-1">
             <option value="" hidden>Sắp xếp</option>
@@ -162,7 +185,8 @@ export default function Users() {
           ))}
         </tbody>
       </table>
-      <div className="flex justify-center mt-4">
+      {
+        totalPages > 0 ? <div className="flex justify-center mt-4">
         <button
           onClick={prevPage}
           className={`mx-1 px-3 py-1 border rounded ${currentPage === 1 ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-white text-blue-500'}`}
@@ -182,11 +206,12 @@ export default function Users() {
         <button
           onClick={nextPage}
           className={`mx-1 px-3 py-1 border rounded ${currentPage === totalPages ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-white text-blue-500'}`}
-          disabled={currentPage === totalPages}
+          disabled={currentPage === totalPages || totalPages === 1}
         >
           <i className="fa-solid fa-chevron-right"></i>
         </button>
-      </div>
+      </div> : ''
+      }
       {showModal ?
         <div className="w-screen h-screen bg-black bg-opacity-40 fixed flex flex-col items-center top-0 right-0 justify-center">
           <div className="flex justify-between bg-white w-1/3 pb-16 pl-4 pr-4 pt-4 border-y-[1px] rounded-t-xl">
@@ -198,6 +223,9 @@ export default function Users() {
           </div>
         </div> : ''
       }
+      <LoadingOverlay open={loading} />
+      <div className={`transition-opacity duration-500 ${loading ? 'opacity-0' : 'opacity-100'}`}></div>
+      <Snackbar message={snackbarMessage} open={snackbarOpen} onClose={closeSnackbar} />
     </div>
   );
 }

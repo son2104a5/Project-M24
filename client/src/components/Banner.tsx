@@ -1,4 +1,14 @@
+import { useDispatch, useSelector } from "react-redux"
+import { State } from "../interface"
+import { useEffect } from "react";
+import { getBanners } from "../services/banners.service";
+
 export default function Banner() {
+  const banners = useSelector((state: State) => state.banners)
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(getBanners());
+  }, [dispatch]);
   return (
     <div>
         <div id="default-carousel" className="relative w-full h-[500px]" data-carousel="slide">
@@ -40,41 +50,18 @@ export default function Banner() {
             </div>
           </div>
           <div className="absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse">
-            <button
-              type="button"
-              className="w-3 h-3 rounded-full bg-slate-300"
-              aria-current="true"
-              aria-label="Slide 1"
-              data-carousel-slide-to={0}
-            />
-            <button
-              type="button"
-              className="w-3 h-3 rounded-full bg-slate-300"
-              aria-current="false"
-              aria-label="Slide 2"
-              data-carousel-slide-to={1}
-            />
-            <button
-              type="button"
-              className="w-3 h-3 rounded-full bg-slate-300"
-              aria-current="false"
-              aria-label="Slide 3"
-              data-carousel-slide-to={2}
-            />
-            <button
-              type="button"
-              className="w-3 h-3 rounded-full bg-slate-300"
-              aria-current="false"
-              aria-label="Slide 4"
-              data-carousel-slide-to={3}
-            />
-            <button
-              type="button"
-              className="w-3 h-3 rounded-full bg-slate-300"
-              aria-current="false"
-              aria-label="Slide 5"
-              data-carousel-slide-to={4}
-            />
+            {
+              banners.map((banner, index) => {
+                return <button
+                  key={banner.id}
+                  type="button"
+                  className="w-3 h-3 rounded-full bg-slate-300"
+                  aria-current="true"
+                  aria-label={`Slide ${index + 1}`}
+                  data-carousel-slide-to={index}
+                />
+              })
+            }
           </div>
           <button
             type="button"

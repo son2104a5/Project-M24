@@ -1,9 +1,17 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import bcrypt from "bcryptjs-react"
+import LoadingOverlay from "../components/LoadingOverlay";
 
 export default function LoginAdmin() {
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        setTimeout(() => {
+        setLoading(false);
+        }, 2000); // Simulate a loading process for 2 seconds
+    }, []);
     const navigate = useNavigate()
     const [check, setCheck] = useState<string>('none')
     const [adminAcc, setAdminAcc] = useState<string>('none')
@@ -41,6 +49,8 @@ export default function LoginAdmin() {
                                 navigate('/admin')
                                 localStorage.setItem('userHasLogin', JSON.stringify(email))
                             }else{
+                                console.log(err);
+                                
                                 setCheck('block')
                             }
                         })
@@ -99,11 +109,13 @@ export default function LoginAdmin() {
                     * Tài khoản đã bị khóa!
                 </div>
                 <div>
-                    <Link to={'/'}><button type="submit" className="bg-blue-600 text-white p-2 pl-8 pr-8 mb-3 rounded hover:opacity-80" onClick={submitUser}>Đăng nhập</button></Link>
+                    <Link to={'/admin'}><button type="submit" className="bg-blue-600 text-white p-2 pl-8 pr-8 mb-3 rounded hover:opacity-80" onClick={submitUser}>Đăng nhập</button></Link>
                 </div>
-                <p className="">Tạo tài khoản admin? <Link to={'register'} className="hover:text-blue-600 ">Đăng ký ngay!</Link></p>
+                <p className="">Tạo tài khoản admin? <Link to={'/admin/register'} className="hover:text-blue-600 ">Đăng ký ngay!</Link></p>
             </form>
         </div>
+        <LoadingOverlay open={loading} />
+            <div className={`transition-opacity duration-500 ${loading ? 'opacity-0' : 'opacity-100'}`}></div>
     </div>
   )
 }

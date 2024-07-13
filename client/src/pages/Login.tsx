@@ -1,9 +1,17 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import bcrypt from "bcryptjs-react"
+import LoadingOverlay from "../components/LoadingOverlay";
 
 export default function Login() {
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        setTimeout(() => {
+        setLoading(false);
+        }, 2000); // Simulate a loading process for 2 seconds
+    }, []);
     const navigate = useNavigate()
     const [check, setCheck] = useState<string>('none')
     const [checkEmailInput, setCheckEmailInput] = useState<string>('none')
@@ -40,6 +48,7 @@ export default function Login() {
                             localStorage.setItem('userHasLogin', JSON.stringify(email))
                         }else{
                             setCheck('block')
+                            console.log(err);
                         }
                     })
                 }
@@ -95,6 +104,8 @@ export default function Login() {
                 <p className="">Bạn chưa có tài khoản? <Link to={'/register'} className="hover:text-blue-600 ">Đăng ký ngay!</Link></p>
             </form>
         </div>
+        <LoadingOverlay open={loading} />
+            <div className={`transition-opacity duration-500 ${loading ? 'opacity-0' : 'opacity-100'}`}></div>
     </div>
   )
 }

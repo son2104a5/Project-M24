@@ -16,6 +16,9 @@ import Home from "./pages/Home";
 import Products from "./admin/pages/Products";
 import ProductDetail from "./pages/ProductDetail";
 import Cart from "./pages/Cart";
+import Profile from "./pages/Profile";
+import History from "./pages/History";
+import Buying from "./pages/Buying";
 
 export default function App() {
   return (
@@ -26,9 +29,9 @@ export default function App() {
           <Route path="/" element={<Home/>}></Route>
           <Route path="/product-detail" element={<ProductDetail/>}></Route>
           <Route path="/cart" element={<Cart/>}></Route>
-          <Route path="/profile"></Route>
-          <Route path="/history"></Route>
-          <Route path="/buying"></Route>
+          <Route path="/profile" element={<Profile/>}></Route>
+          <Route path="/history" element={<History/>}></Route>
+          <Route path="/buying" element={<Buying/>}></Route>
           
           {/* --------- Admin --------- */}
           <Route path="/admin" element={<AdminMain/>}>

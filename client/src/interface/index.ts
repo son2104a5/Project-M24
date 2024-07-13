@@ -8,6 +8,8 @@ export interface User {
     address: string;
     role: string;
     cart: any[];
+    history: any[];
+    favourites: any[];
     phoneNumber: string;
   }
   
@@ -22,7 +24,6 @@ export interface User {
     createdAt: string;
     updatedAt: string;
     hasPrice: number;
-    favorite: boolean;
   }
   
   export interface Category {
@@ -42,18 +43,12 @@ export interface User {
     updatedAt: string;
     status: string;
   }
-  
-  export interface Cart {
+
+  export interface Banner {
     id: number;
-    userId: number;
-    productId: number;
-    quantity: number;
+    image: string;
     createdAt: string;
     updatedAt: string;
-    product: Product;
-    user: User;
-    totalPrice: number;
-    totalQuantity: number;
   }
   
   export interface State {
@@ -61,5 +56,6 @@ export interface User {
     products: Product[];
     categories: Category[];
     orders: Order[];
+    banners: Banner[];
   }
   

@@ -10,6 +10,21 @@ export const getAllUsers: any = createAsyncThunk(
   }
 );
 
+export const updatedUser: any = createAsyncThunk(
+  'users/updatedUser', async (user: User) => {
+    const res = await axios.patch(`http://localhost:8080/users/${user.id}`, user);
+    return res.data;
+  }
+)
+
+export const getHasLoginUser: any = createAsyncThunk(
+  "users/getHasLoginUser",
+  async (user: User) => {
+    const res = await axios.get(`http://localhost:8080/users/${user.id}`);
+    return res.data;
+  }
+)
+
 export const getLockedUser: any = createAsyncThunk(
   "users/getLockedUser",
   async (user: User) => {
@@ -17,6 +32,14 @@ export const getLockedUser: any = createAsyncThunk(
       ...user,
       status: !user.status
     });
+    return res.data;
+  }
+)
+
+export const updateCartItem: any = createAsyncThunk(
+  "users/updateCartItem",
+  async (update: User) => {
+    const res = await axios.put(`http://localhost:8080/users/${update.id}`, update);
     return res.data;
   }
 )

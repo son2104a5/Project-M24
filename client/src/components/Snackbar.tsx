@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 const Snackbar = ({ message, open, onClose }: { message: string; open: boolean; onClose: () => void; }) => {
   const [showSpinner, setShowSpinner] = useState(true);
   const [showCheck, setShowCheck] = useState(false);
+  const [displayMessage, setDisplayMessage] = useState("Đang chờ xử lí...");
 
   useEffect(() => {
     let spinnerInterval: NodeJS.Timeout;
@@ -10,6 +11,7 @@ const Snackbar = ({ message, open, onClose }: { message: string; open: boolean; 
     if (open) {
       setShowSpinner(true);
       setShowCheck(false);
+      setDisplayMessage("Đang chờ xử lí...");
       spinnerInterval = setInterval(() => {
         setShowSpinner(prev => !prev); // Toggle spinner display
       }, 1000);
@@ -18,17 +20,18 @@ const Snackbar = ({ message, open, onClose }: { message: string; open: boolean; 
         clearInterval(spinnerInterval); // Stop spinner animation after 2 seconds
         setShowSpinner(false);
         setShowCheck(true);
+        setDisplayMessage(message);
         setTimeout(() => {
           setShowCheck(false);
           onClose();
         }, 2000);
-      }, 3000); // Total duration: 3 seconds (1s spinner + 2s check)
+      }, 1000); // Spinner duration: 2 seconds, Check duration: 2 seconds
     }
 
     return () => {
       clearInterval(spinnerInterval); // Clean up interval on component unmount or when open state changes
     };
-  }, [open, onClose]);
+  }, [open, onClose, message]);
 
   return (
     <div className={`fixed top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-50 z-50 ${open ? 'block' : 'hidden'}`}>
@@ -46,11 +49,10 @@ const Snackbar = ({ message, open, onClose }: { message: string; open: boolean; 
             </svg>
           )}
         </div>
-        <p className="text-gray-800">{message}</p>
+        <p className="text-gray-800">{displayMessage}</p>
       </div>
     </div>
   );
 };
 
 export default Snackbar;
-

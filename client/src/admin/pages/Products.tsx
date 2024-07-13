@@ -6,6 +6,7 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "../../config/firebase";
 import { getAllCategories } from "../../services/categories.service";
 import Snackbar from "../../components/Snackbar";
+import LoadingOverlay from "../../components/LoadingOverlay";
 
 let data: number;
 export default function Products() {
@@ -27,27 +28,32 @@ export default function Products() {
   const [searchQuery, setSearchQuery] = useState('');
   const [sortOption, setSortOption] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const [usersPerPage] = useState(10);
+  const productsPerPage = 6;
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
-  const [showSpinner, setShowSpinner] = useState(true);
-  const [showCheck, setShowCheck] = useState(false);
+  const [filterSelect, setFilterSelect] = useState<string>('')
 
   const categories = useSelector((state: State) => state.categories);
-  const products = useSelector((state: State) => state.products);
+  const products = useSelector((state: State) => state.products) || [];
   // Error
   const [nameError, setNameError] = useState<boolean>(false)
   const [stockError, setStockError] = useState<boolean>(false)
   const [descriptionError, setDescriptionError] = useState<boolean>(false)
   const [categoryError, setCategoryError] = useState<boolean>(false)
 
+  const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000); // Simulate a loading process for 2 seconds
+  }, []);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getAllProducts());
     dispatch(getAllCategories());
-  }, [products]);
+  }, [dispatch]);
 
   // Snackbar
   const showSnackbar = (message: string) => {
@@ -67,6 +73,7 @@ export default function Products() {
   const handleSelectedFiles = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files: any = e.target.files?.[0];
     setImageUrls(files);
+    console.log(imageValue);
   };
 
   const openForm = (action: boolean, product?: Product) => {
@@ -75,7 +82,7 @@ export default function Products() {
       data = product.id;
       setNameProductValue(product.name);
       setImageValue(product.image);
-      setCategoryValue(product.idCategory);
+      setCategoryValue(String(product.idCategory));
       setPriceValue(product.price);
       setStockValue(product.stock);
       setDescriptionValue(product.description);
@@ -124,8 +131,7 @@ export default function Products() {
               description: descriptionValue,
               hasPrice: 0,
               createdAt: new Date(),
-              updatedAt: '',
-              favorite: false,
+              updatedAt: ''
             }))
             showSnackbar('Thêm sản phẩm thành công!')
           } else {
@@ -140,8 +146,7 @@ export default function Products() {
               description: descriptionValue,
               hasPrice: 0,
               createdAt: product.createdAt,
-              updatedAt: new Date(),
-              favorite: false,
+              updatedAt: new Date()
             };
             dispatch(updateProduct(updateData));
             showSnackbar('Cập nhật sản phẩm thành công!')
@@ -181,7 +186,7 @@ export default function Products() {
   };
 
   const getFilteredProducts = () => {
-    let filteredProducts = [...products];
+    let filteredProducts = [...products] || [];
 
     if (searchQuery) {
       filteredProducts = filteredProducts.filter(product =>
@@ -202,12 +207,6 @@ export default function Products() {
       case 'stock-desc':
         filteredProducts.sort((a, b) => b.stock - a.stock);
         break;
-      case 'createdAt-asc':
-        filteredProducts.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
-        break;
-      case 'createdAt-desc':
-        filteredProducts.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
-        break;
       default:
         break;
     }
@@ -217,11 +216,11 @@ export default function Products() {
   const filteredProducts = getFilteredProducts();
 
   // Phân trang
-  const indexOfLastUser = currentPage * usersPerPage;
-  const indexOfFirstUser = indexOfLastUser - usersPerPage;
+  const indexOfLastUser = currentPage * productsPerPage;
+  const indexOfFirstUser = indexOfLastUser - productsPerPage;
   const currentProducts = filteredProducts.slice(indexOfFirstUser, indexOfLastUser);
 
-  const totalPages = Math.ceil(filteredProducts.length / usersPerPage);
+  const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
@@ -240,17 +239,30 @@ export default function Products() {
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-5 mt-5">
-        <strong className="text-3xl">Danh sách sản phẩm:</strong>
+      <div className="flex justify-end items-center mb-5 mt-5">
         <div className='flex gap-5'>
+          <select name="" id="" className="w-[170px] border-2 rounded p-1" onChange={(e)=>setFilterSelect(e.target.value)}>
+            <option value="" hidden>Lọc</option>
+            <option value="categories">Danh mục</option>
+            <option value="price">Giá</option>
+            <option value="stock">Tồn kho</option>
+          </select>
+          {
+            filterSelect !== '' ? <select name="" id="" className="w-[170px] border-2 rounded p-1">
+              <option value="" hidden></option>
+              {
+                filterSelect === 'category' ? categories.map(category => (
+                  <option key={category.id} value={category.id}>{category.name}</option>
+                )) : ''
+              }
+            </select> : ''
+          }
           <select name="" id="" className="w-[170px] border-2 rounded p-1" onChange={handleSort}>
             <option value="" hidden>Sắp xếp</option>
             <option value="price-asc">Giá tăng dần</option>
             <option value="price-desc">Giá giảm dần</option>
-            <option value="stock-asc">Dự trữ tăng dần</option>
-            <option value="stock-desc">Dự trữ giảm dần</option>
-            <option value="createdAt-asc">Ngày tạo tăng dần</option>
-            <option value="createdAt-desc">Ngày tạo giảm dần</option>
+            <option value="stock-asc">Tồn kho tăng dần</option>
+            <option value="stock-desc">Tồn kho giảm dần</option>
           </select>
           <input
             className="border-slate-200 border-2 rounded p-1 w-[270px] bg-transparent"
@@ -274,10 +286,10 @@ export default function Products() {
               Tên sản phẩm
             </th>
             <th className="px-6 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-              Ảnh
+              Danh mục
             </th>
             <th className="px-6 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-              Chi tiết
+              Ảnh
             </th>
             <th className="px-6 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
               Giá
@@ -303,14 +315,18 @@ export default function Products() {
                 <td className="px-6 py-4 border-b border-gray-200">{index + 1}</td>
                 <td className="px-6 py-4 border-b border-gray-200">{product.name}</td>
                 <td className="px-6 py-4 border-b border-gray-200">
-                  <img src={product.image} alt={product.name} className="object-cover" width={40} height={40} />
+                  {
+                    categories.find(category => category.id === product.idCategory)?.name
+                  }
                 </td>
-                <td className="px-6 py-4 border-b border-gray-200 cursor-pointer pl-11"><i className="fa-solid fa-clipboard"></i></td>
+                <td className="px-3 py-4 border-b border-gray-200">
+                  <img className="w-[29px]" src={product.image}/>
+                </td>
                 <td className="px-6 py-4 border-b border-gray-200">{VND.format(product.price)}</td>
                 <td className="px-6 py-4 border-b border-gray-200">{product.stock}</td>
                 <td className="px-6 py-4 border-b border-gray-200">{new Date(product.createdAt).toLocaleDateString()}</td>
                 <td className="px-6 py-4 border-b border-gray-200">{product.updatedAt ? new Date(product.updatedAt).toLocaleDateString() : '-'}</td>
-                <td className="px-6 py-4 text-sm flex gap-5 pl-10 pt-7">
+                <td className="px-6 py-4 border-b border-gray-200 text-xl flex gap-5 pl-8 mt-2">
                   <i onClick={() => openForm(false, product)} className="fa-regular fa-pen-to-square text-blue-600 hover:opacity-70"></i>
                   <i onClick={() => deleteModel(product)} className="fa-solid fa-trash-can text-red-600 hover:opacity-70"></i>
                 </td>
@@ -319,7 +335,8 @@ export default function Products() {
           }
         </tbody>
       </table>
-      <div className="flex justify-center mt-4">
+      {
+        totalPages > 0 ? <div className="flex justify-center mt-4">
         <button
           onClick={prevPage}
           className={`mx-1 px-3 py-1 border rounded ${currentPage === 1 ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-white text-blue-500'}`}
@@ -339,11 +356,12 @@ export default function Products() {
         <button
           onClick={nextPage}
           className={`mx-1 px-3 py-1 border rounded ${currentPage === totalPages ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-white text-blue-500'}`}
-          disabled={currentPage === totalPages && currentPage === 0}
+          disabled={currentPage === totalPages || totalPages === 1}
         >
           <i className="fa-solid fa-chevron-right"></i>
         </button>
-      </div>
+      </div> : ''
+      }
       {
         form && <div className="fixed top-0 right-0 flex items-center justify-center w-screen h-screen bg-black bg-opacity-40">
           <div className="bg-white p-10 flex flex-col gap-10 rounded-2xl w-auto">
@@ -365,7 +383,7 @@ export default function Products() {
                   * Tên sản phẩm không được để trống!
                 </div>
                 <div className="flex gap-2 items-center">
-                  {imageUrls || imageValue ? (
+                  {imageUrls ? (
                     <img src={URL.createObjectURL(imageUrls)} alt="Chosen image" className='h-[200px]' />
                   ) : (
                     <i className="fa-solid fa-image text-9xl"></i>
@@ -378,8 +396,8 @@ export default function Products() {
                 </div>
                 <div className="flex gap-2">
                   <label htmlFor="">Danh mục:</label>
-                  <select className="border-2 p-1 rounded w-[300px]" onChange={(e) => setCategoryValue(e.target.value)}>
-                    <option value="" hidden>Chọn danh mục</option>
+                  <select value={categoryValue} className="border-2 p-1 rounded w-[300px]" onChange={(e) => setCategoryValue(e.target.value)}>
+                    <option hidden>Chọn danh mục</option>
                     {
                       categories.map((category, index) => {
                         return <option key={index} value={category.id}>{category.name}</option>
@@ -443,7 +461,8 @@ export default function Products() {
       }
       {/* Snackbar */}
       <Snackbar message={snackbarMessage} open={snackbarOpen} onClose={closeSnackbar} />
-
+      <LoadingOverlay open={loading} />
+      <div className={`transition-opacity duration-500 ${loading ? 'opacity-0' : 'opacity-100'}`}></div>
     </div>
   );
 }

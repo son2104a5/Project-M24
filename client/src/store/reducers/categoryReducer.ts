@@ -11,7 +11,7 @@ const categoriesSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(getAllCategories.fulfilled, (state, action)=>{
-                return action.payload
+                return state = action.payload
             })
             .addCase(createCategory.fulfilled, (state, action)=>{
                 return [...state, action.payload]
@@ -20,7 +20,7 @@ const categoriesSlice = createSlice({
                 return state.map((category: Category) => category.id === action.payload.id? action.payload : category)
             })
             .addCase(deleteCategory.fulfilled, (state, action)=>{
-                return state.filter((category: Category) => category.id!== action.payload)
+                return state.map((category: Category) => category.id === action.payload.id? action.payload : category)
             })
     }
 })

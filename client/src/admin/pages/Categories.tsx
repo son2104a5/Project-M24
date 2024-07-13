@@ -2,25 +2,67 @@ import { useDispatch, useSelector } from "react-redux"
 import { Category, State } from "../../interface"
 import { useEffect, useState } from "react"
 import { createCategory, deleteCategory, getAllCategories, updateCategory } from "../../services/categories.service"
+import LoadingOverlay from "../../components/LoadingOverlay";
+import Snackbar from "../../components/Snackbar";
 
-let data: number;
 export default function Categories() {
   const [openForm, setOpenForm] = useState<boolean>(false)
   const [inputValue, setInputValue] = useState<string>('')
   const [error, setError] = useState<string>('none')
-  const [selectedCategory, setSelectedCategory] = useState<Category | null>(null)
+  const [selectedCategory, setSelectedCategory] = useState<Category>()
   const [active, setActive] = useState<string>('add')
   const [model, setModel] = useState<boolean>(false)
+  const [currentPage, setCurrentPage] = useState(1);
+  const [categoriesPerPage] = useState(8);
+  const [searchTerm, setSearchTerm] = useState<string>('');
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
+  const [sortBy, setSortBy] = useState<'createdAt' | 'updatedAt'>('createdAt');
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
   const dispatch = useDispatch()
-  const categories = useSelector((state: State)=>state.categories)
+  const categories = useSelector((state: State)=>state.categories) || []
   useEffect(() => {
     dispatch(getAllCategories())
-  }, [categories])
+  }, [dispatch])
+
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000); // Simulate a loading process for 2 seconds
+  }, []);
+
+  const filteredCategories = categories.filter(category =>
+    category.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const sortedCategories = filteredCategories.slice().sort((a, b) => {
+    const order = sortOrder === 'asc' ? 1 : -1;
+    if (sortBy === 'createdAt') {
+      return order * (new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
+    } else {
+      return order * (new Date(a.updatedAt).getTime() - new Date(b.updatedAt).getTime());
+    }
+  });
+
+  const showSnackbar = (message: string) => {
+    setSnackbarMessage(message);
+    setSnackbarOpen(true);
+    setTimeout(() => {
+      setSnackbarOpen(false);
+    }, 2000);
+  };
+
+  const closeSnackbar = () => {
+    setSnackbarOpen(false);
+    setSnackbarMessage('');
+  };
   
   const formCategory = (active: string, category?: Category) => {
     setActive(active)
     setInputValue(category ? category.name : '')
-    category ? data = category.id : ''
+    category ? setSelectedCategory(category) : ''
     setOpenForm(true) 
   }
   const formClosed = () => {
@@ -28,35 +70,36 @@ export default function Categories() {
   }
   const addCategory = () => {
     if (inputValue === '') {
-      setError('block')
-    }else {
-      if(active === 'add') {  
-        setError('none')
+      setError('block');
+    } else {
+      if (active === 'add') {
+        setError('none');
         dispatch(createCategory({
           id: Math.floor(Math.random() * 1000000000),
           name: inputValue,
           createdAt: new Date(),
           updatedAt: ''
-        }))
-        dispatch(getAllCategories())
-        setInputValue('')
-        setOpenForm(false)
-      } else {
-        setError('none')
-        let updateData: any = categories.find(c => c.id === data)
+        }));
+        dispatch(getAllCategories());
+        showSnackbar('Thêm danh mục thành công.')
+        setInputValue('');
+        setOpenForm(false);
+      } else if (active == 'edit') {
+        setError('none');
+        let updateData: any = selectedCategory;
         updateData = {
-          id: updateData.id,
+          ...updateData,
           name: inputValue,
-          createdAt: updateData.createdAt,
           updatedAt: new Date()
         }
-        dispatch(updateCategory(updateData))
-        dispatch(getAllCategories())
-        setInputValue('')
-        setOpenForm(false)
+        dispatch(updateCategory(updateData));
+        dispatch(getAllCategories());
+        showSnackbar('Cập nhật danh mục thành công.')
+        setInputValue('');
+        setOpenForm(false);
       }
     }
-  }
+  };
   const formDelete = (data: Category) => {
     setModel(true)
     setSelectedCategory(data)
@@ -68,23 +111,57 @@ export default function Categories() {
     if(selectedCategory){
       dispatch(deleteCategory(selectedCategory.id))
       dispatch(getAllCategories())
+      showSnackbar(`Xóa danh mục ${selectedCategory.name} thành công.`)
       handleClose()
     }
   }
+
+  const indexOfLastCategory = currentPage * categoriesPerPage;
+  const indexOfFirstCategory = indexOfLastCategory - categoriesPerPage;
+  const currentCategories = sortedCategories.slice(indexOfFirstCategory, indexOfLastCategory);
+  const totalPages = Math.ceil(sortedCategories.length / categoriesPerPage);
+
+  const paginate = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+  }
+  const nextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const prevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const [order, field] = e.target.value.split('-');
+    setSortOrder(order as 'asc' | 'desc');
+    setSortBy(field as 'createdAt' | 'updatedAt');
+  };
+
   return (
     <div>
-      <div className="flex justify-between items-center mb-5 mt-5">
-        <strong className="text-3xl">Danh sách danh mục:</strong>
+      <div className="flex justify-end items-center mb-5 mt-5">
         <div className='flex gap-5'>
-          <select name="" id="" className="w-[170px] border-2 rounded p-1">
+          <select
+              onChange={handleSortChange}
+              className="w-[170px] border-2 rounded p-1"
+          >
             <option value="" hidden>Sắp xếp</option>
-            <option value="">Ngày tạo (tăng dần)</option>
-            <option value="">Ngày tạo (giảm dần)</option>
+            <option value="asc-createdAt">Ngày tạo (tăng dần)</option>
+            <option value="desc-createdAt">Ngày tạo (giảm dần)</option>
+            <option value="asc-updatedAt">Ngày sửa đổi (tăng dần)</option>
+            <option value="desc-updatedAt">Ngày sửa đổi (giảm dần)</option>
           </select>
           <input
             className="border-slate-200 border-2 rounded p-1 w-[270px] bg-transparent"
             type="text"
             placeholder="Tìm kiếm..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
           />
           <button className="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={()=>formCategory('add')}>
             Thêm mới
@@ -112,30 +189,55 @@ export default function Categories() {
           </tr>
         </thead>
         <tbody>
-          {
-            categories.map((category, index) => {
-              return  <tr className="bg-white" key={category.id}>
-                        <td className="px-6 py-4 border-b border-gray-200 text-sm">
-                          {index + 1}
-                        </td>
-                        <td className="px-6 py-4 border-b border-gray-200 text-sm">
-                          {category.name}
-                        </td>
-                        <td className="px-6 py-4 border-b border-gray-200 text-sm">
-                          {new Date(category.createdAt).toLocaleDateString()}
-                        </td>
-                        <td className="px-6 py-4 border-b border-gray-200 text-sm">
-                          {category.updatedAt !== '' ? new Date(category.updatedAt).toLocaleDateString() : '-'}
-                        </td>
-                        <td className="px-6 py-4 border-b border-gray-200 text-sm flex gap-5 ml-4">
-                          <i className="fa-regular fa-pen-to-square text-blue-600 hover:opacity-70" onClick={()=>formCategory('edit', category)}></i>
-                          <i className="fa-solid fa-trash-can text-red-600 hover:opacity-70" onClick={()=>formDelete(category)}></i>
-                        </td>
-                      </tr>
-            })
-          }
+        {currentCategories.map((category, index) => (
+            <tr className="bg-white" key={category.id}>
+              <td className="px-6 py-4 border-b border-gray-200 text-sm">
+                {indexOfFirstCategory + index + 1}
+              </td>
+              <td className="px-6 py-4 border-b border-gray-200 text-sm">
+                {category.name}
+              </td>
+              <td className="px-6 py-4 border-b border-gray-200 text-sm">
+                {new Date(category.createdAt).toLocaleDateString()}
+              </td>
+              <td className="px-6 py-4 border-b border-gray-200 text-sm">
+                {category.updatedAt ? new Date(category.updatedAt).toLocaleDateString() : '-'}
+              </td>
+              <td className="px-6 py-4 border-b border-gray-200 text-xl flex gap-5 pl-8">
+                <i className="fa-regular fa-pen-to-square text-blue-600 hover:opacity-70" onClick={()=>formCategory('edit', category)}></i>
+                <i className="fa-solid fa-trash-can text-red-600 hover:opacity-70" onClick={()=>formDelete(category)}></i>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
+      {
+        totalPages > 0 ? <div className="flex justify-center mt-4">
+        <button
+          onClick={prevPage}
+          className={`mx-1 px-3 py-1 border rounded ${currentPage === 1 ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-white text-blue-500'}`}
+          disabled={currentPage === 1}
+        >
+          <i className="fa-solid fa-chevron-left"></i>
+        </button>
+        {Array.from({ length: totalPages }, (_, index) => (
+          <button
+            key={index}
+            onClick={() => paginate(index + 1)}
+            className={`mx-1 px-3 py-1 border rounded ${currentPage === index + 1 ? 'bg-blue-500 text-white' : 'bg-white text-blue-500'}`}
+          >
+            {index + 1}
+          </button>
+        ))}
+        <button
+          onClick={nextPage}
+          className={`mx-1 px-3 py-1 border rounded ${currentPage === totalPages ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-white text-blue-500'}`}
+          disabled={currentPage === totalPages || totalPages === 1}
+        >
+          <i className="fa-solid fa-chevron-right"></i>
+        </button>
+      </div> : ''
+      }
       {
         openForm ? <div className="fixed top-0 right-0 flex items-center justify-center w-screen h-screen bg-black bg-opacity-40">
           <div className="bg-white p-10 flex flex-col gap-10 rounded-2xl w-1/3">
@@ -175,6 +277,9 @@ export default function Categories() {
               </div>
             </div> : ''
       }
+      <LoadingOverlay open={loading} />
+      <div className={`transition-opacity duration-500 ${loading ? 'opacity-0' : 'opacity-100'}`}></div>
+      <Snackbar message={snackbarMessage} open={snackbarOpen} onClose={closeSnackbar} />
     </div>
   )
 }

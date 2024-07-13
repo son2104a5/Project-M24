@@ -3,11 +3,16 @@ import bcrypt from "bcryptjs-react"
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { User } from "../interface";
+import LoadingOverlay from "../components/LoadingOverlay";
 
 export default function Register() {
-    useEffect(()=>{
-       
-    }, [])
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        setTimeout(() => {
+        setLoading(false);
+        }, 2000); // Simulate a loading process for 2 seconds
+    }, []);
     const [username, setUsername] = useState<string>('')
     const takeName = (e: React.ChangeEvent<HTMLInputElement>) => {
         setUsername(e.target.value)
@@ -60,6 +65,8 @@ export default function Register() {
                     phoneNumber: phoneNumber,
                     password: bcrypt.hashSync(password, 10),
                     cart: [],
+                    favourites: [],
+                    history: [],
                     status: true,
                     avatar: "https://firebasestorage.googleapis.com/v0/b/ptit-son.appspot.com/o/images%2Favatar-trang-4.jpg?alt=media&token=42d35db7-47e1-451d-acd1-8ceced065c6f",
                     address: ""
@@ -134,7 +141,8 @@ export default function Register() {
                 <p className="">Bạn đã có tài khoản? <Link to={'/login'} className="hover:text-blue-600">Đăng nhập</Link></p>
             </form>
         </div>
-
+        <LoadingOverlay open={loading} />
+            <div className={`transition-opacity duration-500 ${loading ? 'opacity-0' : 'opacity-100'}`}></div>
     </div>
   )
 }
