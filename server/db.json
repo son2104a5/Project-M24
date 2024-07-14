@@ -1,25 +1,385 @@
 {
   "users": [
     {
-      "id": 781358518,
-      "role": "admin",
-      "name": "admin",
-      "email": "admin@gmail.com",
-      "phoneNumber": "0123456789",
-      "password": "$2a$10$xfX.vPvFjgE6oBuOa2giu./gs.CONouupWhGJP4eZPtIgvwWXhE66",
-      "cart": []
-    },
-    {
-      "id": 197435694,
-      "role": "user",
+      "id": 373503181,
+      "role": "Admin",
       "name": "Nguyễn Đắc Sơn",
       "email": "sonnguyen21804@gmail.com",
       "phoneNumber": "0354331215",
-      "password": "$2a$10$voCau3NBBeMQKxrzZgGnXO4nDxMZKXwhrOHnN/p.WlWGzme0a5g6K",
-      "cart": []
+      "password": "$2a$10$qZz3OxlXMJz6qIcYoZDd6.6aXgjONIm5SRaldwVz47p1lj.6XelCq",
+      "favourites": [],
+      "history": [
+        {
+          "id": 800892960,
+          "userId": 373503181,
+          "products": [
+            {
+              "productId": 915445539,
+              "name": "IPad Gen 10 10.9",
+              "price": 10750000,
+              "image": "https://firebasestorage.googleapis.com/v0/b/ptit-son.appspot.com/o/images%2F9techvn-ipad-202100004.jpg?alt=media&token=0dbdae53-972b-40c8-9aa8-3a83421edff5",
+              "quantity": 1,
+              "status": true
+            }
+          ],
+          "quantity": 1,
+          "price": 10750000,
+          "buyAt": "2024-07-14T15:50:33.639Z",
+          "email": "sonnguyen21804@gmail.com",
+          "address": "27 Ng. 73 Đ. Tân Triều, Tân Triều, Thanh Trì, Hà Nội",
+          "status": true
+        },
+        {
+          "id": 510936095,
+          "userId": 373503181,
+          "products": [
+            {
+              "productId": 225104126,
+              "name": "Tai nghe chụp tai Logitech G733",
+              "price": 5200000,
+              "image": "https://firebasestorage.googleapis.com/v0/b/ptit-son.appspot.com/o/images%2Flogitech-hp.jpg?alt=media&token=b6bd1d98-9027-48e9-bee6-ae2f78b2fe63",
+              "quantity": 1,
+              "status": true
+            }
+          ],
+          "quantity": 1,
+          "price": 5200000,
+          "buyAt": "2024-07-14T15:57:41.471Z",
+          "email": "sonnguyen21804@gmail.com",
+          "address": "27 Ng. 73 Đ. Tân Triều, Tân Triều, Thanh Trì, Hà Nội",
+          "status": true
+        }
+      ],
+      "cart": [
+        {
+          "productId": 44382696,
+          "name": "IPad M9 Gen 10",
+          "price": 15090000,
+          "image": "https://firebasestorage.googleapis.com/v0/b/ptit-son.appspot.com/o/images%2Fapple-ipad-9th-gen-102-64gb-wifi-bundle-d-20231201161730867~22653547w_alt1.jpg?alt=media&token=1f6b705f-ca10-4aec-a2e0-05104d8bf7ee",
+          "quantity": 1,
+          "status": true
+        }
+      ],
+      "status": true,
+      "avatar": "https://firebasestorage.googleapis.com/v0/b/ptit-son.appspot.com/o/images%2Favatar-trang-4.jpg?alt=media&token=42d35db7-47e1-451d-acd1-8ceced065c6f"
+    },
+    {
+      "id": 437452929,
+      "role": "User",
+      "name": "Nguyễn Văn A",
+      "email": "a@gmail.com",
+      "phoneNumber": "0785346552",
+      "password": "$2a$10$8wv0Cc/skNjMeAELwD5ouuiJZccLWjoCDmH9meYuQKPhP/kfq6oWK",
+      "cart": [
+        {
+          "productId": 225104126,
+          "name": "Tai nghe chụp tai Logitech G733",
+          "price": 5200000,
+          "image": "https://firebasestorage.googleapis.com/v0/b/ptit-son.appspot.com/o/images%2Flogitech-hp.jpg?alt=media&token=b6bd1d98-9027-48e9-bee6-ae2f78b2fe63",
+          "quantity": 1,
+          "status": false
+        },
+        {
+          "productId": 548123280,
+          "name": "IMac 24 Green",
+          "price": 36500000,
+          "image": "https://firebasestorage.googleapis.com/v0/b/ptit-son.appspot.com/o/images%2Fimac-24-green-selection-hero-202310.jpg?alt=media&token=2c9973f2-983c-4ac0-9f03-95fb07bca762",
+          "quantity": 1,
+          "status": false
+        }
+      ],
+      "favourites": [],
+      "history": [],
+      "status": true,
+      "avatar": "https://firebasestorage.googleapis.com/v0/b/ptit-son.appspot.com/o/images%2Favatar-trang-4.jpg?alt=media&token=42d35db7-47e1-451d-acd1-8ceced065c6f"
     }
   ],
-  "categories": [],
-  "products": [],
-  "comments": []
+  "categories": [
+    {
+      "id": 764103463,
+      "name": "Laptop",
+      "createdAt": "2024-07-10T11:21:44.938Z",
+      "updatedAt": ""
+    },
+    {
+      "id": 901520903,
+      "name": "TV",
+      "createdAt": "2024-07-11T08:12:58.272Z",
+      "updatedAt": ""
+    },
+    {
+      "id": 3144943,
+      "name": "PC",
+      "createdAt": "2024-07-12T02:28:21.704Z",
+      "updatedAt": ""
+    },
+    {
+      "id": 91175378,
+      "name": "Tablet",
+      "createdAt": "2024-07-12T02:28:36.486Z",
+      "updatedAt": ""
+    },
+    {
+      "id": 351018366,
+      "name": "Phụ kiện",
+      "createdAt": "2024-07-12T02:28:56.618Z",
+      "updatedAt": ""
+    },
+    {
+      "id": 342286205,
+      "name": "Ipad",
+      "createdAt": "2024-07-12T10:00:41.175Z",
+      "updatedAt": ""
+    },
+    {
+      "id": 604322751,
+      "name": "IMac",
+      "createdAt": "2024-07-12T10:07:05.947Z",
+      "updatedAt": ""
+    },
+    {
+      "id": 189732714,
+      "name": "Samsung",
+      "createdAt": "2024-07-12T10:07:19.766Z",
+      "updatedAt": ""
+    },
+    {
+      "id": 297083210,
+      "name": "Iphone",
+      "createdAt": "2024-07-12T10:07:26.849Z",
+      "updatedAt": ""
+    }
+  ],
+  "products": [
+    {
+      "id": 548123280,
+      "name": "IMac 24 Green",
+      "image": "https://firebasestorage.googleapis.com/v0/b/ptit-son.appspot.com/o/images%2Fimac-24-green-selection-hero-202310.jpg?alt=media&token=2c9973f2-983c-4ac0-9f03-95fb07bca762",
+      "idCategory": 604322751,
+      "price": 36500000,
+      "stock": 2222,
+      "description": "IMac 24 Green mang đến một sức mạnh vượt trội, để máy có thể hoạt động một cách mượt mà dù phải giải quyết nhiều tác vụ nặng, nhiều tác vụ khó. iMac 2021 cũng là dòng máy tính có thiết kế bắt mắt, sang trọng, thu hút được nhiều đối tượng khách hàng khác nhau.",
+      "hasPrice": 0,
+      "createdAt": "2024-07-13T01:13:04.627Z",
+      "updatedAt": "2024-07-13T03:13:05.506Z"
+    },
+    {
+      "id": 261721839,
+      "name": "IMac M3 (Pink)",
+      "image": "https://firebasestorage.googleapis.com/v0/b/ptit-son.appspot.com/o/images%2F0024290_imac-m3-2023-24-inch-10-core-gpu8gb512gb.jpeg?alt=media&token=011183f1-6928-4694-b486-27394233a581",
+      "idCategory": 604322751,
+      "price": 36500000,
+      "stock": 1111,
+      "description": "IMac M3 (Pink) mang đến một sức mạnh vượt trội, để máy có thể hoạt động một cách mượt mà dù phải giải quyết nhiều tác vụ nặng, nhiều tác vụ khó. iMac 2021 cũng là dòng máy tính có thiết kế bắt mắt, sang trọng, thu hút được nhiều đối tượng khách hàng khác nhau.",
+      "hasPrice": 0,
+      "createdAt": "2024-07-13T01:16:42.599Z",
+      "updatedAt": "2024-07-13T03:13:42.695Z"
+    },
+    {
+      "id": 677288454,
+      "name": "AirPod Pro 3",
+      "image": "https://firebasestorage.googleapis.com/v0/b/ptit-son.appspot.com/o/images%2Fair-pod.jpg?alt=media&token=86eef6ec-8c19-4cf6-8cd8-761c8383df83",
+      "idCategory": 351018366,
+      "price": 2000000,
+      "stock": 3232,
+      "description": "Apple Airpods 3 2022 là mẫu tai nghe bluetooth mới nhất đến từ ông trùm công nghệ Apple. Tai nghe sở hữu thiết kế nhỏ gọn cùng rất nhiều công nghệ hiện đại tai nghe mang tới cho người dùng trải nghiệm âm thanh cực sống động.",
+      "hasPrice": 0,
+      "createdAt": "2024-07-13T01:21:31.574Z",
+      "updatedAt": "2024-07-13T03:16:52.010Z"
+    },
+    {
+      "id": 225104126,
+      "name": "Tai nghe chụp tai Logitech G733",
+      "image": "https://firebasestorage.googleapis.com/v0/b/ptit-son.appspot.com/o/images%2Flogitech-hp.jpg?alt=media&token=b6bd1d98-9027-48e9-bee6-ae2f78b2fe63",
+      "idCategory": 351018366,
+      "price": 5200000,
+      "stock": 1111,
+      "description": "Tai nghe chụp tai Logitech G733 là một thiết bị đến từ thương hiệu Logitech. Nó có thể hoạt động trên mọi hệ điều hành, nền tảng thông qua giắc âm thanh 3,5 mm. Đây cũng là một sự lựa chọn tai nghe an toàn, đáng để thử nghiệm khi mà cả chất lượng và giá cả đều được đánh giá tốt.",
+      "hasPrice": 0,
+      "createdAt": "2024-07-13T08:40:39.332Z",
+      "updatedAt": ""
+    },
+    {
+      "id": 915445539,
+      "name": "IPad Gen 10 10.9",
+      "image": "https://firebasestorage.googleapis.com/v0/b/ptit-son.appspot.com/o/images%2F9techvn-ipad-202100004.jpg?alt=media&token=0dbdae53-972b-40c8-9aa8-3a83421edff5",
+      "idCategory": 342286205,
+      "price": 10750000,
+      "stock": 3333,
+      "description": "iPad gen 10 2022 (iPad 10.9 inch) là chiếc máy tính bảng mới nhất sở hữu sức mạnh vô song từ con chip A14 Bionic chạy trên hệ điều hành iPadOS 16. Với thiết kế tối giản đã cải thiện các đường nét để hình ảnh luôn hợp thời trang, chiếc iPad này sẽ cho bạn quãng thời gian trải nghiệm tuyệt vời nhất.",
+      "hasPrice": 0,
+      "createdAt": "2024-07-13T08:42:32.032Z",
+      "updatedAt": ""
+    },
+    {
+      "id": 44382696,
+      "name": "IPad M9 Gen 10",
+      "image": "https://firebasestorage.googleapis.com/v0/b/ptit-son.appspot.com/o/images%2Fapple-ipad-9th-gen-102-64gb-wifi-bundle-d-20231201161730867~22653547w_alt1.jpg?alt=media&token=1f6b705f-ca10-4aec-a2e0-05104d8bf7ee",
+      "idCategory": 342286205,
+      "price": 15090000,
+      "stock": 2233,
+      "description": "iPad M9 Gen 10 là chiếc máy tính bảng mới nhất sở hữu sức mạnh vô song từ con chip A14 Bionic chạy trên hệ điều hành iPadOS 16. Với thiết kế tối giản đã cải thiện các đường nét để hình ảnh luôn hợp thời trang, chiếc iPad này sẽ cho bạn quãng thời gian trải nghiệm tuyệt vời nhất.",
+      "hasPrice": 0,
+      "createdAt": "2024-07-13T08:46:42.779Z",
+      "updatedAt": ""
+    },
+    {
+      "id": 671673639,
+      "name": "ASUS Rog Strix Scar 17 733 QS",
+      "image": "https://firebasestorage.googleapis.com/v0/b/ptit-son.appspot.com/o/images%2F71sgAr9atBS._AC_UF894%2C1000_QL80_.jpg?alt=media&token=930ecdd8-67f9-47e4-941c-9ea3c30f85ab",
+      "idCategory": 764103463,
+      "price": 32000000,
+      "stock": 2525,
+      "description": "Laptop Asus Rog Strix Scar 17 733QS sở hữu cấu hình mạnh với chip Intel Core i7-13650HX cùng với card VGA 8GB RTX4060 vượt trội. Laptop với màn hình kích thước lớn 16 inch cùng độ phân giải lên đến QHD+ hiển thị sắc nét. Cùng với đó laptop Asus gaming này còn sở hữu hệ thóng 3 quạt tản nhiệt giúp máy hoạt động ổn định.",
+      "hasPrice": 0,
+      "createdAt": "2024-07-13T08:50:55.717Z",
+      "updatedAt": ""
+    },
+    {
+      "id": 681302697,
+      "name": "ASUS Vivobook",
+      "image": "https://firebasestorage.googleapis.com/v0/b/ptit-son.appspot.com/o/images%2Fasus-vivobook-go-15-e1504fa-r5-nj776w-thumb-600x600.jpg?alt=media&token=e2536679-2bf3-4cfe-ad8c-06758f5d8a01",
+      "idCategory": 764103463,
+      "price": 10690000,
+      "stock": 1212,
+      "description": "Laptop ASUS Vivobook 15 X1504ZA-NJ582W sở hữu thiết kế kim loại sang trọng với trọng lượng chỉ 1.7kg đi kèm màn hình IPS 15.6-inch FHD sắc nét. Công nghệ CPU Intel thế hệ 12, RAM DDR4 và ổ SSD M.2 PCIe Gen3 trên thiết bị đảm bảo hiệu suất mạnh mẽ. Ngoài ra, sản phẩm laptop Asus Vivobook còn có sẵn 3 loại cổng kết nối USB thuận tiện để kết nối các thiết bị lưu trữ khác nhau",
+      "hasPrice": 0,
+      "createdAt": "2024-07-13T08:52:13.124Z",
+      "updatedAt": ""
+    },
+    {
+      "id": 400142309,
+      "name": "PC CPS 04 Gaming + Bàn phím cơ và chuột",
+      "image": "https://firebasestorage.googleapis.com/v0/b/ptit-son.appspot.com/o/images%2F71LMiD9i%2BML._AC_SL1500_.jpg?alt=media&token=4a55beb5-0a3e-4850-a6af-ba9e43236a4c",
+      "idCategory": 3144943,
+      "price": 11890000,
+      "stock": 110,
+      "description": "PC CPS Gaming G04 được đánh giá cao bởi tính năng và thiết kế ấn tượng của sản phẩm, nhiều khách hàng tin tưởng sử dụng trong thời gian dài để thay mới cho máy cũ hiện tại. Mẫu PC gaming này là lựa chọn hàng đầu dành cho các game thủ chuyên nghiệp mang đến quá trình hoạt động bền bỉ và mượt mà.",
+      "hasPrice": 0,
+      "createdAt": "2024-07-13T08:54:03.577Z",
+      "updatedAt": ""
+    },
+    {
+      "id": 442328538,
+      "name": "iBUYPOWER Gaming PC Element 9260 PRO",
+      "image": "https://firebasestorage.googleapis.com/v0/b/ptit-son.appspot.com/o/images%2F81jhBeNlXcL._AC_UF894%2C1000_QL80_.jpg?alt=media&token=e6d1a69e-52ad-4308-a4f0-9458d760281e",
+      "idCategory": 3144943,
+      "price": 4950000,
+      "stock": 20,
+      "description": "Trải nghiệm hiệu suất cao vượt trội với máy tính để bàn chơi game iBUYPOWER do Intel cung cấp này có sức mạnh xử lý mạnh mẽ và đồ họa mới nhất. Trang bị cho mình máy tính để bàn chơi game mạnh mẽ này và thưởng thức các trò chơi đòi hỏi khắt khe và phổ biến nhất trên thị trường hiện nay!",
+      "hasPrice": 0,
+      "createdAt": "2024-07-13T08:55:22.075Z",
+      "updatedAt": ""
+    },
+    {
+      "id": 781458022,
+      "name": "Tablet 10.1 inch Android 12",
+      "image": "https://firebasestorage.googleapis.com/v0/b/ptit-son.appspot.com/o/images%2F633b51122af1ce605a57ae50-10-1.jpg?alt=media&token=1542d867-79aa-42d6-8dc8-b4bf2726532d",
+      "idCategory": 91175378,
+      "price": 5490000,
+      "stock": 2,
+      "description": "Máy tính bảng FEONAL mang đến trải nghiệm xem vượt trội với Bộ xử lý Octa-Core và kích thước màn hình máy tính bảng 10,1 inch hỗ trợ độ phân giải 1920x1200.",
+      "hasPrice": 0,
+      "createdAt": "2024-07-13T08:57:41.939Z",
+      "updatedAt": "2024-07-13T09:10:19.389Z"
+    },
+    {
+      "id": 889078585,
+      "name": "Lenovo Tab M10 (3rd Gen)",
+      "image": "https://firebasestorage.googleapis.com/v0/b/ptit-son.appspot.com/o/images%2Fpkhjbh23c7sjfxf76k6e6usevy3ixi851221.avif?alt=media&token=4a6a0e8c-9f00-4ede-b6d7-a10a070d575e",
+      "idCategory": 91175378,
+      "price": 6200000,
+      "stock": 0,
+      "description": "Sở hữu thiết kế đẹp mắt cùng các tính năng ấn tượng, máy tính bảng chính hãng Lenovo Tab M10 FHD Gen 3 phù hợp với đối tượng sử dụng là gia đình, phụ huynh mua cho con em để học tập và giải trí.",
+      "hasPrice": 0,
+      "createdAt": "2024-07-13T09:00:13.616Z",
+      "updatedAt": ""
+    },
+    {
+      "id": 708686759,
+      "name": "Tivi 4K Ultra HD 65” dòng RU62",
+      "image": "https://firebasestorage.googleapis.com/v0/b/ptit-son.appspot.com/o/images%2FH929c398ae99f456c880dad64160f63678.jpg_640x640Q90.jpg_.webp?alt=media&token=afd1402a-4df3-4fc9-83b5-0c354864b1a1",
+      "idCategory": 901520903,
+      "price": 12000000,
+      "stock": 400,
+      "description": "Khám phá trải nghiệm xem tuyệt đỉnh với dòng TV Roku 4K Ultra HD RU62 của FFalcon. Tận hưởng chất lượng hình ảnh và âm thanh ngoạn mục, bao gồm độ phân giải 4K, HDR10, Dolby Vision và Dolby Audio. Trải nghiệm thế giới giải trí hoàn toàn mới với sự kết hợp hoàn hảo giữa chất lượng và tính năng từ FFalcon - chiếc TV mang đến sự đổi mới cho ngôi nhà của bạn.",
+      "hasPrice": 0,
+      "createdAt": "2024-07-13T09:03:34.841Z",
+      "updatedAt": ""
+    },
+    {
+      "id": 455285129,
+      "name": "X75K | 4K Ultra HD | (HDR) | Smart TV (Google TV)",
+      "image": "https://firebasestorage.googleapis.com/v0/b/ptit-son.appspot.com/o/images%2Fthiet-ke-chua-co-ten-27-5418b1ed-8dcf-485e-b391-e4446bca0819.webp?alt=media&token=5ccddf1e-fe39-4f18-987f-1c7bad9ca2f8",
+      "idCategory": 901520903,
+      "price": 10100000,
+      "stock": 120,
+      "description": "Bộ xử lý mạnh mẽ trên TV Sony BRAVIA 4K này dùng thuật toán tiên tiến để giảm nhiễu và tăng cường chi tiết. Với tín hiệu 4K rõ nét hơn, mọi nội dung bạn xem đều đạt chất lượng gần 4K, ngập tràn sắc màu và độ tương phản chân thực.",
+      "hasPrice": 0,
+      "createdAt": "2024-07-13T09:06:09.772Z",
+      "updatedAt": "2024-07-13T09:10:42.043Z"
+    },
+    {
+      "id": 952492682,
+      "name": "Samsung Galaxy S24 Ultra",
+      "image": "https://firebasestorage.googleapis.com/v0/b/ptit-son.appspot.com/o/images%2Fss-s24-ultra-xam-222.webp?alt=media&token=86f6e153-32df-48c0-b500-80aa47d3a722",
+      "idCategory": 189732714,
+      "price": 26690000,
+      "stock": 1010,
+      "description": "Samsung S24 Ultra là siêu phẩm smartphone đỉnh cao mở đầu năm 2024 đến từ nhà Samsung với chip Snapdragon 8 Gen 3 For Galaxy mạnh mẽ, công nghệ tương lai Galaxy AI cùng khung viền Titan đẳng cấp hứa hẹn sẽ mang tới nhiều sự thay đổi lớn về mặt thiết kế và cấu hình. SS Galaxy S24 bản Ultra sở hữu màn hình 6.8 inch Dynamic AMOLED 2X tần số quét 120Hz. Máy cũng sở hữu camera chính 200MP, camera zoom quang học 50MP, camera tele 10MP và camera góc siêu rộng 12MP.",
+      "hasPrice": 0,
+      "createdAt": "2024-07-13T09:07:55.310Z",
+      "updatedAt": ""
+    },
+    {
+      "id": 705186738,
+      "name": "Samsung Galaxy Z Flip5",
+      "image": "https://firebasestorage.googleapis.com/v0/b/ptit-son.appspot.com/o/images%2Fsamsung-z-lip5_1_.webp?alt=media&token=8119119c-e533-4ad6-8b64-4609f8f7c1cf",
+      "idCategory": 189732714,
+      "price": 15990000,
+      "stock": 2010,
+      "description": "Samsung Galaxy Z Flip 5 có thiết kế màn hình rộng 6.7 inch và độ phân giải Full HD+ (1080 x 2640 Pixels), dung lượng RAM 8GB, bộ nhớ trong 256GB. Màn hình Dynamic AMOLED 2X của điện thoại này hiển thị rõ nét và sắc nét, mang đến trải nghiệm ấn tượng khi sử dụng.",
+      "hasPrice": 0,
+      "createdAt": "2024-07-13T09:09:08.876Z",
+      "updatedAt": ""
+    },
+    {
+      "id": 596356939,
+      "name": "Samsung Galaxy M55",
+      "image": "https://firebasestorage.googleapis.com/v0/b/ptit-son.appspot.com/o/images%2Fdien-thoai-samsung-galaxy-m55.webp?alt=media&token=e3411e62-b90d-4516-961a-1fd60817675a",
+      "idCategory": 189732714,
+      "price": 11690000,
+      "stock": 1000,
+      "description": "Điện thoại Samsung Galaxy M55 12GB 256GB với màn hình 6.7 inch Super AMOLED Plus cung cấp khả năng hiển thị Full HD+ siêu thực cùng tần số quét lên đến 120Hz. Kèm theo đó là các thông số cấu hình đỉnh cao tới từ chipset Qualcomm Snapdragon 7 Gen 1, bộ nhớ trong 256GB cùng RAM 12GB, đảm bảo tốc độ xử lý, đa nhiệm và lưu trữ ấn tượng. Ngoài ra, thế hệ điện thoại Samsung Galaxy M này còn sở hữu viên pin dung lượng 5000mAh, hỗ trợ trải nghiệm dài lâu chỉ sau 1 lần nạp pin.",
+      "hasPrice": 0,
+      "createdAt": "2024-07-13T09:12:51.729Z",
+      "updatedAt": ""
+    },
+    {
+      "id": 982662144,
+      "name": "iPhone 15 Pro Max",
+      "image": "https://firebasestorage.googleapis.com/v0/b/ptit-son.appspot.com/o/images%2Fiphone-15-pro-max_3.webp?alt=media&token=afad6d4b-7d9e-41e1-b7c3-cb6bd8b9d76f",
+      "idCategory": 297083210,
+      "price": 29090000,
+      "stock": 1001,
+      "description": "iPhone 15 Pro Max sở hữu màn hình Super Retina XDR OLED 6.7 inches với độ phân giải 2796 x 1290 pixels, cung cấp trải nghiệm hình ảnh sắc nét, chân thực. So với các phiên bản tiền nhiệm, thế hệ iPhone 15 bản Pro Max đảm bảo mang tới hiệu năng mạnh mẽ với sự hỗ trợ của chipset Apple A17 Pro, cùng bộ nhớ ấn tượng. Đặc biệt hơn, điện thoại iPhone 15 ProMax mới này còn được đánh giá cao với camera sau 48MP và camera trước 12MP, hỗ trợ chụp ảnh với độ rõ nét cực đỉnh.",
+      "hasPrice": 0,
+      "createdAt": "2024-07-13T09:14:17.796Z",
+      "updatedAt": ""
+    },
+    {
+      "id": 525627684,
+      "name": "iPhone 14 Pro Max",
+      "image": "https://firebasestorage.googleapis.com/v0/b/ptit-son.appspot.com/o/images%2Fiphone-14-pro_2__5.webp?alt=media&token=009a5429-ddab-4948-beb7-f463386beb72",
+      "idCategory": 297083210,
+      "price": 26590000,
+      "stock": 1002,
+      "description": "iPhone 14 Pro Max sở hữu thiết kế màn hình Dynamic Island ấn tượng cùng màn hình OLED 6,7 inch hỗ trợ always-on display và hiệu năng vượt trội với chip A16 Bionic. Bên cạnh đó máy còn sở hữu nhiều nâng cấp về camera với cụm camera sau 48MP, camera trước 12MP dùng bộ nhớ RAM 6GB đa nhiệm vượt trội.",
+      "hasPrice": 0,
+      "createdAt": "2024-07-13T09:15:34.839Z",
+      "updatedAt": ""
+    }
+  ],
+  "comments": [],
+  "orders": []
 }

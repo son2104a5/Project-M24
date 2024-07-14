@@ -1,10 +1,10 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import bcrypt from "bcryptjs-react"
 import LoadingOverlay from "../components/LoadingOverlay";
 
-export default function Login() {
+export default function LoginAdmin() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -12,11 +12,13 @@ export default function Login() {
         setLoading(false);
         }, 2000); // Simulate a loading process for 2 seconds
     }, []);
+    const navigate = useNavigate()
     const [check, setCheck] = useState<string>('none')
+    const [adminAcc, setAdminAcc] = useState<string>('none')
     const [checkEmailInput, setCheckEmailInput] = useState<string>('none')
     const [checkPasswordInput, setCheckPasswordInput] = useState<string>('none')
     const [checkStatus, setCheckStatus] = useState<boolean>(false)
-    const [email, setEmail] = useState<string>('')
+    const [email, setEmail] = useState<any>('')
     const [password, setPassword] = useState<string>('')
     const inputValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if(e.target.name === 'email'){
@@ -27,33 +29,34 @@ export default function Login() {
         e.preventDefault()
         if (email === ''){
             setCheckEmailInput('')
-        } else setCheckEmailInput('none')
+        }
         if (password === ''){
             setCheckPasswordInput('')
-        } else setCheckPasswordInput('none')
+        }
         if(email !== '' && password !== ''){
             setCheckEmailInput('none')
             setCheckPasswordInput('none')
             let checkEmailResponse = await axios.get(`http://localhost:8080/users?email_like=${email}`);
-            if(checkEmailResponse.data.length === 0){
-                setCheck('block')
-            } else if (checkEmailResponse.data[0].status) {
+            if(checkEmailResponse.data[0].role === 'Admin'){
                 if(checkEmailResponse.data.length === 0){
                     setCheck('block')
                 }else {
-                    bcrypt.compare(password, checkEmailResponse.data[0].password, function(err, result) {
-                        if(result){
-                            window.location.href = '/'
-                            localStorage.setItem('userHasLogin', JSON.stringify(email))
-                        }else{
-                            setCheck('block')
-                            console.log(err);
-                        }
-                    })
+                    if(!checkEmailResponse.data[0].status){
+                        setCheckStatus(true)
+                    }else {
+                        bcrypt.compare(password, checkEmailResponse.data[0].password, function(err, result) {
+                            if(result){
+                                navigate('/admin')
+                                localStorage.setItem('userHasLogin', JSON.stringify(email))
+                            }else{
+                                console.log(err);
+                                
+                                setCheck('block')
+                            }
+                        })
+                    }
                 }
-            } else {
-                setCheckStatus(true)
-            }
+            }else setAdminAcc('block')
         }
     }
   return (
@@ -72,6 +75,7 @@ export default function Login() {
                 >
                     * Email không được để trống
                 </div>
+                
                 <div className="w-[400px] flex justify-between mb-[20px]">
                     <label className="">Mật khẩu:</label>
                     <input className="border-slate-200 border-2 rounded p-1 w-[270px] bg-transparent" type="password" value={password} name="password" onChange={inputValueChange}/>
@@ -93,14 +97,21 @@ export default function Login() {
                 <div
                     className="flex mb-5 text-red-500 ml-4"
                     role="alert"
+                    style={{ display: `${adminAcc}` }}
+                >
+                    * Không phải tài khoản admin
+                </div>
+                <div
+                    className="flex mb-5 text-red-500 ml-4"
+                    role="alert"
                     style={{ display: `${checkStatus ? 'block' : 'none'}` }}
                 >
                     * Tài khoản đã bị khóa!
                 </div>
                 <div>
-                    <button type="submit" className="bg-blue-600 text-white p-2 pl-8 pr-8 mb-3 rounded hover:opacity-80" onClick={submitUser}>Đăng nhập</button>
+                    <Link to={'/admin'}><button type="submit" className="bg-blue-600 text-white p-2 pl-8 pr-8 mb-3 rounded hover:opacity-80" onClick={submitUser}>Đăng nhập</button></Link>
                 </div>
-                <p className="">Bạn chưa có tài khoản? <Link to={'/register'} className="hover:text-blue-600 ">Đăng ký ngay!</Link></p>
+                <p className="">Tạo tài khoản admin? <Link to={'/admin/register'} className="hover:text-blue-600 ">Đăng ký ngay!</Link></p>
             </form>
         </div>
         <LoadingOverlay open={loading} />
