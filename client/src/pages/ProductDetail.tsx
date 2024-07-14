@@ -1,6 +1,6 @@
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-import Navbar from '../components/Navbar'
+// import Navbar from '../components/Navbar'
 import { useEffect, useState } from 'react';
 import LoadingOverlay from '../components/LoadingOverlay';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -80,7 +80,8 @@ export default function ProductDetail() {
         // Update the quantity if the product is already in the cart
         updatedCart[index] = {
           ...updatedCart[index],
-          quantity: updatedCart[index].quantity + quantity
+          quantity: updatedCart[index].quantity + quantity,
+          status: true
         };
       } else {
         // Add the product to the cart
@@ -103,6 +104,7 @@ export default function ProductDetail() {
       showSnackbar('Thêm vào giỏ hàng thành công');
     } else {
       alert('Vui lòng đăng nhập để mua hàng');
+      window.location.href = 'login'
     }
   };
   
@@ -141,6 +143,10 @@ export default function ProductDetail() {
       };
       
       dispatch(updatedUser(updatedUserObj));
+      window.location.href = 'cart'
+    } else {
+      alert('Vui lòng đăng nhập để mua hàng');
+      window.location.href = 'login'
     }
   };
 
@@ -150,7 +156,7 @@ export default function ProductDetail() {
   return (
     <div>
       <Header></Header>
-      <Navbar></Navbar>
+      {/* <Navbar></Navbar> */}
       <div className="max-w-5xl mx-auto p-4">
         <div className="flex flex-wrap">
           <div className="w-full md:w-1/2 p-4">
@@ -178,7 +184,7 @@ export default function ProductDetail() {
                 <p>{productDetail.description}</p>
               </div>
               <div className="flex space-x-4 my-4">
-                <a href='/cart' className="flex-1 bg-purple-600 text-white py-2 rounded-lg hover:bg-opacity-70 text-center  " onClick={buyNow}>MUA NGAY</a>
+                <button className="flex-1 bg-purple-600 text-white py-2 rounded-lg hover:bg-opacity-70 text-center  " onClick={buyNow}>MUA NGAY</button>
               </div>
               <div className="flex space-x-4 my-4">
                 <button className="flex-1 bg-gray-300 py-2 rounded-lg hover:bg-opacity-70" onClick={addToCart}>THÊM VÀO GIỎ HÀNG</button>

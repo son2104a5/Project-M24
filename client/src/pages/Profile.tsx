@@ -1,6 +1,6 @@
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-import Navbar from '../components/Navbar'
+// import Navbar from '../components/Navbar'
 import LoadingOverlay from '../components/LoadingOverlay'
 import { useEffect, useState } from 'react';
 
@@ -15,7 +15,7 @@ export default function Profile() {
   return (
     <div>
       <Header></Header>
-      <Navbar></Navbar>
+      {/* <Navbar></Navbar> */}
       <Footer></Footer>
       <LoadingOverlay open={loading} />
         <div className={`transition-opacity duration-500 ${loading ? 'opacity-0' : 'opacity-100'}`}></div>

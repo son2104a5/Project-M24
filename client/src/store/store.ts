@@ -3,6 +3,7 @@ import usersReducer from "./reducers/userReducer";
 import categoryReducer from "./reducers/categoryReducer";
 import productReducer from "./reducers/productReducer";
 import bannerReducer from "./reducers/bannerReducer";
+import orderReducer from "./reducers/orderReducer";
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
     categories: categoryReducer,
     products: productReducer,
     banners: bannerReducer,
+    orders: orderReducer,
   },
 });
 

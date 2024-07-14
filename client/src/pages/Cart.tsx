@@ -5,7 +5,7 @@ import LoadingOverlay from '../components/LoadingOverlay'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { State, User } from '../interface'
-import { getHasLoginUser, updateCartItem } from '../services/users.service'
+import { getAllUsers, updateCartItem } from '../services/users.service'
 import Snackbar from '../components/Snackbar'
 
 export default function Cart() {
@@ -18,8 +18,14 @@ export default function Cart() {
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [allChecked, setAllChecked] = useState(false);
   const dispatch = useDispatch();
-  const user: any = useSelector((state: State) => state.users[0]);
-  const isUser: User = user;
+  const loginUser = JSON.parse(localStorage.getItem('userHasLogin') as string);
+  const user: any = useSelector((state: State) => state.users);
+  const userHasLogin = user.filter((user: any) => user.email === loginUser)
+  console.log(userHasLogin);
+  
+  const isUser: User = userHasLogin[0];
+  console.log(isUser);
+  
   const [totalPrice, setTotalPrice] = useState<number>(0);
 
   const VND = new Intl.NumberFormat('vi-VN', {
@@ -29,7 +35,7 @@ export default function Cart() {
 
   useEffect(() => {
     setTimeout(() => {
-      dispatch(getHasLoginUser());
+      dispatch(getAllUsers())
       setLoading(false);
     }, 2000);
   }, [dispatch]);
@@ -104,7 +110,10 @@ export default function Cart() {
       status: !updatedCart[index].status
     };
     setCartItems(updatedCart);
-    
+    const checkAllProduct = updatedCart.find(cartItem => cartItem.status === true)
+    if (!checkAllProduct) {
+      setAllChecked(false);
+    }
     const updatedUser = {
       ...isUser,
       cart: updatedCart

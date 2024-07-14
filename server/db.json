@@ -8,20 +8,90 @@
       "phoneNumber": "0354331215",
       "password": "$2a$10$qZz3OxlXMJz6qIcYoZDd6.6aXgjONIm5SRaldwVz47p1lj.6XelCq",
       "favourites": [],
-      "history": [],
+      "history": [
+        {
+          "id": 800892960,
+          "userId": 373503181,
+          "products": [
+            {
+              "productId": 915445539,
+              "name": "IPad Gen 10 10.9",
+              "price": 10750000,
+              "image": "https://firebasestorage.googleapis.com/v0/b/ptit-son.appspot.com/o/images%2F9techvn-ipad-202100004.jpg?alt=media&token=0dbdae53-972b-40c8-9aa8-3a83421edff5",
+              "quantity": 1,
+              "status": true
+            }
+          ],
+          "quantity": 1,
+          "price": 10750000,
+          "buyAt": "2024-07-14T15:50:33.639Z",
+          "email": "sonnguyen21804@gmail.com",
+          "address": "27 Ng. 73 Đ. Tân Triều, Tân Triều, Thanh Trì, Hà Nội",
+          "status": true
+        },
+        {
+          "id": 510936095,
+          "userId": 373503181,
+          "products": [
+            {
+              "productId": 225104126,
+              "name": "Tai nghe chụp tai Logitech G733",
+              "price": 5200000,
+              "image": "https://firebasestorage.googleapis.com/v0/b/ptit-son.appspot.com/o/images%2Flogitech-hp.jpg?alt=media&token=b6bd1d98-9027-48e9-bee6-ae2f78b2fe63",
+              "quantity": 1,
+              "status": true
+            }
+          ],
+          "quantity": 1,
+          "price": 5200000,
+          "buyAt": "2024-07-14T15:57:41.471Z",
+          "email": "sonnguyen21804@gmail.com",
+          "address": "27 Ng. 73 Đ. Tân Triều, Tân Triều, Thanh Trì, Hà Nội",
+          "status": true
+        }
+      ],
       "cart": [
         {
-          "productId": 952492682,
-          "name": "Samsung Galaxy S24 Ultra",
-          "price": 26690000,
-          "image": "https://firebasestorage.googleapis.com/v0/b/ptit-son.appspot.com/o/images%2Fss-s24-ultra-xam-222.webp?alt=media&token=86f6e153-32df-48c0-b500-80aa47d3a722",
-          "quantity": 2,
-          "status": false
+          "productId": 44382696,
+          "name": "IPad M9 Gen 10",
+          "price": 15090000,
+          "image": "https://firebasestorage.googleapis.com/v0/b/ptit-son.appspot.com/o/images%2Fapple-ipad-9th-gen-102-64gb-wifi-bundle-d-20231201161730867~22653547w_alt1.jpg?alt=media&token=1f6b705f-ca10-4aec-a2e0-05104d8bf7ee",
+          "quantity": 1,
+          "status": true
         }
       ],
       "status": true,
-      "avatar": "https://firebasestorage.googleapis.com/v0/b/ptit-son.appspot.com/o/images%2Favatar-trang-4.jpg?alt=media&token=42d35db7-47e1-451d-acd1-8ceced065c6f",
-      "address": ""
+      "avatar": "https://firebasestorage.googleapis.com/v0/b/ptit-son.appspot.com/o/images%2Favatar-trang-4.jpg?alt=media&token=42d35db7-47e1-451d-acd1-8ceced065c6f"
+    },
+    {
+      "id": 437452929,
+      "role": "User",
+      "name": "Nguyễn Văn A",
+      "email": "a@gmail.com",
+      "phoneNumber": "0785346552",
+      "password": "$2a$10$8wv0Cc/skNjMeAELwD5ouuiJZccLWjoCDmH9meYuQKPhP/kfq6oWK",
+      "cart": [
+        {
+          "productId": 225104126,
+          "name": "Tai nghe chụp tai Logitech G733",
+          "price": 5200000,
+          "image": "https://firebasestorage.googleapis.com/v0/b/ptit-son.appspot.com/o/images%2Flogitech-hp.jpg?alt=media&token=b6bd1d98-9027-48e9-bee6-ae2f78b2fe63",
+          "quantity": 1,
+          "status": false
+        },
+        {
+          "productId": 548123280,
+          "name": "IMac 24 Green",
+          "price": 36500000,
+          "image": "https://firebasestorage.googleapis.com/v0/b/ptit-son.appspot.com/o/images%2Fimac-24-green-selection-hero-202310.jpg?alt=media&token=2c9973f2-983c-4ac0-9f03-95fb07bca762",
+          "quantity": 1,
+          "status": false
+        }
+      ],
+      "favourites": [],
+      "history": [],
+      "status": true,
+      "avatar": "https://firebasestorage.googleapis.com/v0/b/ptit-son.appspot.com/o/images%2Favatar-trang-4.jpg?alt=media&token=42d35db7-47e1-451d-acd1-8ceced065c6f"
     }
   ],
   "categories": [
@@ -311,37 +381,5 @@
     }
   ],
   "comments": [],
-  "orders": [],
-  "banners": [
-    {
-      "id": 123456789,
-      "image": "https://firebasestorage.googleapis.com/v0/b/ptit-son.appspot.com/o/images%2FMHD-1920x450-3.jpg?alt=media&token=851f85c5-b9b3-4534-95b2-8cd23ebde98f",
-      "createdAt": "2024-07-12T10:49:14.553Z",
-      "updatedAt": ""
-    },
-    {
-      "id": 987654321,
-      "image": "https://firebasestorage.googleapis.com/v0/b/ptit-son.appspot.com/o/images%2F720x220--1--720x220.png?alt=media&token=e6aa712d-9c50-4a2e-b529-7c79c59f23b0",
-      "createdAt": "2024-07-12T10:49:28.742Z",
-      "updatedAt": ""
-    },
-    {
-      "id": 369852147,
-      "image": "https://firebasestorage.googleapis.com/v0/b/ptit-son.appspot.com/o/images%2F720x220-720x220-82.png?alt=media&token=612c39da-262e-40fc-a8f9-85db77027d23",
-      "createdAt": "2024-07-12T10:49:40.173Z",
-      "updatedAt": ""
-    },
-    {
-      "id": 456321789,
-      "image": "https://firebasestorage.googleapis.com/v0/b/ptit-son.appspot.com/o/images%2F720-220-FINAL-720x220-1.png?alt=media&token=66819425-7c11-44dd-8e6c-eccdc446e669",
-      "createdAt": "2024-07-12T10:49:52.614Z",
-      "updatedAt": ""
-    },
-    {
-      "id": 789456123,
-      "image": "https://firebasestorage.googleapis.com/v0/b/ptit-son.appspot.com/o/images%2FNha-via-Chung-MB-720x220.png?alt=media&token=c2ced13b-86b6-457d-8754-b5fd77bc2f10",
-      "createdAt": "2024-07-12T10:50:05.545Z",
-      "updatedAt": ""
-    }
-  ]
+  "orders": []
 }

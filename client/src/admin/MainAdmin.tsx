@@ -27,8 +27,8 @@ export default function MainAdmin() {
   }
   
   return (
-    <div className="flex h-screen bg-slate-100">
-      <div className="bg-black text-white flex flex-col w-[170px] justify-between h-full text-center pb-6 pl-[20px] pt-4">
+    <div className="flex min-h-screen bg-slate-100">
+      <div className="bg-black text-white flex flex-col w-[170px] justify-between h-full fixed text-center pb-6 pl-[20px] pt-4">
         <div>
           <div className="flex flex-col gap-2 items-center pr-4 pb-7">
             <h1 className="text-xl font-bold font-serif"><i className="fa-solid fa-globe"></i> ShopNest</h1>
@@ -66,7 +66,7 @@ export default function MainAdmin() {
           </a>
         </div>
       </div>
-      <div className="flex-1 flex flex-col m-5">
+      <div className="flex-1 flex flex-col m-5 ml-48">
         <div className="bg-white w-full h-[70px] flex items-center justify-between p-3 shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
           <div>
             <strong className="text-3xl">{text}</strong>

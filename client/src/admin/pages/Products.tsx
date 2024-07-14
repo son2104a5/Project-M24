@@ -28,7 +28,7 @@ export default function Products() {
   const [searchQuery, setSearchQuery] = useState('');
   const [sortOption, setSortOption] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const productsPerPage = 6;
+  const productsPerPage = 8;
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [filterSelect, setFilterSelect] = useState<string>('')
@@ -261,8 +261,8 @@ export default function Products() {
             <option value="" hidden>Sắp xếp</option>
             <option value="price-asc">Giá tăng dần</option>
             <option value="price-desc">Giá giảm dần</option>
-            <option value="stock-asc">Tồn kho tăng dần</option>
-            <option value="stock-desc">Tồn kho giảm dần</option>
+            <option value="stock-asc">Trữ lượng tăng dần</option>
+            <option value="stock-desc">Trữ lượng giảm dần</option>
           </select>
           <input
             className="border-slate-200 border-2 rounded p-1 w-[270px] bg-transparent"
@@ -295,7 +295,7 @@ export default function Products() {
               Giá
             </th>
             <th className="px-6 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-              Dự trữ
+              Trữ lượng
             </th>
             <th className="px-6 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
               Ngày tạo

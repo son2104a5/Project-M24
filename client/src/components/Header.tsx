@@ -26,6 +26,7 @@ const Header = () => {
   const handleLogout = () => {
     localStorage.removeItem('userHasLogin');
   };
+  
 
   return (
     <header className="bg-black text-white p-4 shadow-md">
@@ -37,15 +38,29 @@ const Header = () => {
         </div>
         <nav className="flex gap-7 items-center">
           <div className="mr-5 relative">
-            <a href="favourite"><i className="fa-solid fa-heart text-3xl relative left-3"></i></a>
+            <i className="fa-solid fa-heart text-3xl relative left-3 cursor-pointer" onClick={()=>{
+              if(!userHasLogin){
+                alert('Bạn chưa đăng nhập')
+                toLogin();
+              } else {
+                window.location.href = 'favourite'
+              }
+            }}></i>
             <span className="text-[12px] absolute top-[-3px] bg-red-600 p-[1px] rounded-full w-5 text-center">
-              {state.filter((c) => c.favourites && c.favourites.length > 0).length}
+              {user?.favourites.length}
             </span>
           </div>
           <div className="mr-5 relative">
-            <a href="cart"><i className="fa-solid fa-cart-shopping text-3xl relative left-3"></i></a>
+            <i className="fa-solid fa-cart-shopping text-3xl relative left-3 cursor-pointer" onClick={()=>{
+              if(!userHasLogin){
+                alert('Bạn chưa đăng nhập')
+                toLogin();
+              } else {
+                window.location.href = 'cart'
+              }
+            }}></i>
             <span className="text-[12px] absolute top-[-3px] bg-red-600 p-[1px] rounded-full w-5 text-center">
-              {state.filter((c) => c.cart && c.cart.length > 0).length}
+              {user?.cart.length}
             </span>
           </div>
           {

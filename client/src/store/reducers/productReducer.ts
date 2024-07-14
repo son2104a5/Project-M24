@@ -17,7 +17,10 @@ const productsSlice = createSlice({
                 return [...state, action.payload];
             })
             .addCase(updateProduct.fulfilled, (state, action) => {
-                return state.map((product: Product) => product.id === action.payload.id? action.payload : product)
+                const index = state.findIndex(product => product.id === action.payload.id);
+                if (index !== -1) {
+                    state[index] = action.payload;
+                }
             })
             .addCase(deleteProduct.fulfilled, (state, action) => {
                 return state = action.payload;

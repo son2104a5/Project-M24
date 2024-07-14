@@ -39,7 +39,7 @@ export const getLockedUser: any = createAsyncThunk(
 export const updateCartItem: any = createAsyncThunk(
   "users/updateCartItem",
   async (update: User) => {
-    const res = await axios.put(`http://localhost:8080/users/${update.id}`, update);
+    const res = await axios.patch(`http://localhost:8080/users/${update.id}`, update);
     return res.data;
   }
 )

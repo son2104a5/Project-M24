@@ -10,7 +10,7 @@ export default function Users() {
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [usersPerPage] = useState(10);
+  const [usersPerPage] = useState(8);
   const [sortKey, setSortKey] = useState("");
   const [filterStatus, setFilterStatus] = useState("");
   const dispatch = useDispatch();

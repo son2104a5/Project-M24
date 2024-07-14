@@ -1,6 +1,6 @@
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-import Navbar from '../components/Navbar'
+// import Navbar from '../components/Navbar'
 import Banner from '../components/Banner'
 import { useDispatch, useSelector } from 'react-redux'
 import { Category, Product, State } from '../interface'
@@ -34,7 +34,7 @@ export default function Home() {
   );
   const dispatch = useDispatch()
   // Your code here
-  useEffect(()=>{
+  useEffect(() => {
     // Your code here to fetch data from API
     dispatch(getAllProducts())
     dispatch(getAllCategories())
@@ -47,45 +47,51 @@ export default function Home() {
   }
   return (
     <div>
-        <Header></Header>
-        <Navbar></Navbar>
-        <Banner></Banner>
-        <div className='pt-10 pl-32 pr-32 pb-10 flex flex-col'>
-          <h1 className='mb-5 font-bold text-2xl'>DANH MỤC SẢN PHẨM:</h1>
-          <div className='flex gap-7 border-2 border-black'>
-            {/* List Category */}
-            <div className='flex flex-col'>
-              {
-                categories.map((category, index) => {
-                  return (
-                    <div key={index} className={`cursor-pointer hover:text-red-500 border-black p-3 hover:bg-yellow-300 border-r-2 ${index === categories.length - 1 ? '' : 'border-b-2'}`} onClick={()=>getProductsByCategory(category)}>
-                      <h2>{category.name}</h2>
-                    </div>
-                  )
-                })
-              }
-            </div>
-            {/* ProductCategory */}
-            <div className='flex border-l-2'>
+      <Header></Header>
+      {/* <Navbar></Navbar> */}
+      <Banner></Banner>
+      <div className='pt-10 pl-32 pr-32 pb-10 flex flex-col'>
+        <h1 className='mb-5 font-bold text-2xl'>DANH MỤC SẢN PHẨM:</h1>
+        <div className='flex gap-7 border-2 border-black'>
+          {/* List Category */}
+          <div className='flex flex-col'>
             {
-              productsByCategory.map(product => {      
+              categories.map((category, index) => {
                 return (
-                  <Link to={`product-detail?id=${product.id}`} key={product.id} onClick={()=>handleProduct(product.id)} className="flex flex-col justify-between h-[250px] w-[200px] hover:border-[1px] hover:border-black pl-2">
-                    <img src={product.image} className='w-[170px] h-[170px] mb-2'/>
-                    <div>
-                      <h2>{product.name}</h2>
-                      <p>{VND.format(product.price)}</p>
-                    </div>
-                  </Link>
+                  <div key={index} className={`cursor-pointer hover:text-red-500 border-black p-3 hover:bg-yellow-300 border-r-2 ${index === categories.length - 1 ? '' : 'border-b-2'}`} onClick={() => getProductsByCategory(category)}>
+                    <h2>{category.name}</h2>
+                  </div>
                 )
               })
             }
-            </div>
+          </div>
+          {/* ProductCategory */}
+          <div className='flex border-l-2'>
+            {productsByCategory.length > 0 ? (
+              productsByCategory.map((product) => (
+                <Link
+                  to={`product-detail?id=${product.id}`}
+                  key={product.id}
+                  onClick={() => handleProduct(product.id)}
+                  className="flex flex-col justify-between h-[250px] w-[200px] hover:border-[1px] hover:border-black pl-2"
+                >
+                  <img src={product.image} className='w-[170px] h-[170px] mb-2'/>
+                  <div>
+                    <h2>{product.name}</h2>
+                    <p>{VND.format(product.price)}</p>
+                  </div>
+                </Link>
+              ))
+            ) : (
+              <p className='text-2xl p-10'>Hãy chọn danh mục.</p>
+            )}
+
           </div>
         </div>
-        <Footer></Footer>
-        <LoadingOverlay open={loading} />
-          <div className={`transition-opacity duration-500 ${loading ? 'opacity-0' : 'opacity-100'}`}></div>
+      </div>
+      <Footer></Footer>
+      <LoadingOverlay open={loading} />
+      <div className={`transition-opacity duration-500 ${loading ? 'opacity-0' : 'opacity-100'}`}></div>
     </div>
   )
 }

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import bcrypt from "bcryptjs-react"
 import LoadingOverlay from "../components/LoadingOverlay";
 
@@ -12,7 +12,6 @@ export default function Login() {
         setLoading(false);
         }, 2000); // Simulate a loading process for 2 seconds
     }, []);
-    const navigate = useNavigate()
     const [check, setCheck] = useState<string>('none')
     const [checkEmailInput, setCheckEmailInput] = useState<string>('none')
     const [checkPasswordInput, setCheckPasswordInput] = useState<string>('none')
@@ -28,10 +27,10 @@ export default function Login() {
         e.preventDefault()
         if (email === ''){
             setCheckEmailInput('')
-        }
+        } else setCheckEmailInput('none')
         if (password === ''){
             setCheckPasswordInput('')
-        }
+        } else setCheckPasswordInput('none')
         if(email !== '' && password !== ''){
             setCheckEmailInput('none')
             setCheckPasswordInput('none')
@@ -44,7 +43,7 @@ export default function Login() {
                 }else {
                     bcrypt.compare(password, checkEmailResponse.data[0].password, function(err, result) {
                         if(result){
-                            navigate('/')
+                            window.location.href = '/'
                             localStorage.setItem('userHasLogin', JSON.stringify(email))
                         }else{
                             setCheck('block')
@@ -99,7 +98,7 @@ export default function Login() {
                     * Tài khoản đã bị khóa!
                 </div>
                 <div>
-                    <Link to={'/'}><button type="submit" className="bg-blue-600 text-white p-2 pl-8 pr-8 mb-3 rounded hover:opacity-80" onClick={submitUser}>Đăng nhập</button></Link>
+                    <button type="submit" className="bg-blue-600 text-white p-2 pl-8 pr-8 mb-3 rounded hover:opacity-80" onClick={submitUser}>Đăng nhập</button>
                 </div>
                 <p className="">Bạn chưa có tài khoản? <Link to={'/register'} className="hover:text-blue-600 ">Đăng ký ngay!</Link></p>
             </form>
