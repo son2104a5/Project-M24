@@ -6,7 +6,7 @@ import LoadingOverlay from '../components/LoadingOverlay';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTruck, faShieldAlt, faSyncAlt, faStar } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
-import { State } from '../interface';
+import { State, formatVnd } from '../interface';
 import { getProductById } from '../services/products.service';
 import Snackbar from '../components/Snackbar';
 import { getAllUsers, updatedUser } from '../services/users.service';
@@ -34,10 +34,7 @@ export default function ProductDetail() {
     }, 2000); // Simulate a loading process for 2 seconds
   }, []);
 
-  const VND = new Intl.NumberFormat('vi-VN', {
-    style: 'currency',
-    currency: 'VND',
-  });
+  
 
   const productDetail: any = product
 
@@ -167,7 +164,7 @@ export default function ProductDetail() {
             <div>
               <h1 className="text-2xl font-bold">{productDetail.name}</h1>
               <p className="text-gray-500">Tình trạng: <span className={`${productDetail.stock === 0 ? 'text-red-500' : 'text-blue-500'}`}>{productDetail.stock === 0 ? 'Hết hàng' : 'Còn hàng'}</span></p>
-              <p className="text-red-500 text-3xl font-bold my-4">{VND.format(productDetail.price)}</p>
+              <p className="text-red-500 text-3xl font-bold my-4">{formatVnd(productDetail.price)}</p>
               <div className="my-4">
                 <p className="text-gray-700">Số lượng:</p>
                 <div className="flex items-center mt-2">

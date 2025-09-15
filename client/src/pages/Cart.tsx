@@ -4,7 +4,7 @@ import Navbar from '../components/Navbar'
 import LoadingOverlay from '../components/LoadingOverlay'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { State, User } from '../interface'
+import { State, User, formatVnd } from '../interface'
 import { getAllUsers, updateCartItem } from '../services/users.service'
 import Snackbar from '../components/Snackbar'
 
@@ -28,10 +28,7 @@ export default function Cart() {
   
   const [totalPrice, setTotalPrice] = useState<number>(0);
 
-  const VND = new Intl.NumberFormat('vi-VN', {
-    style: 'currency',
-    currency: 'VND',
-  });
+  
 
   useEffect(() => {
     setTimeout(() => {
@@ -233,7 +230,7 @@ export default function Cart() {
                           <img src={item.image} className='w-[70px] h-[50px]' alt={item.name} />
                         </td>
                         <td className="px-6 py-4 border-b border-gray-200 text-sm">
-                          {VND.format(item.price)}
+                          {formatVnd(item.price)}
                         </td>
                         <td className="px-6 py-4 border-b border-gray-200 text-sm">
                           <div className="flex items-center">
@@ -243,7 +240,7 @@ export default function Cart() {
                           </div>
                         </td>
                         <td className="px-6 py-4 border-b border-gray-200 text-sm">
-                          {VND.format(item.price * item.quantity)}
+                          {formatVnd(item.price * item.quantity)}
                         </td>
                         <td className="px-6 py-4 border-b border-gray-200 text-sm pl-12">
                           <i className="fa-solid fa-trash text-red-500 hover:opacity-70" onClick={() => handleAction(false, index)}></i>
@@ -258,7 +255,7 @@ export default function Cart() {
               {totalPrice !== 0 ? <u onClick={()=>handleAction(true)} className='opacity-35 cursor-pointer hover:opacity-15 text-slate-400'>Xóa sản phẩm đã chọn</u> : <p></p>}
               <div className='flex mt-5 gap-5 items-center'>
                 <p>Tổng tiền:</p>
-                <p className='text-red-600'>{VND.format(totalPrice)}</p>
+                <p className='text-red-600'>{formatVnd(totalPrice)}</p>
                 <a 
                   href="/buying" 
                   className={`p-2 rounded ${totalPrice === 0 ? 'bg-gray-400 cursor-not-allowed' : 'bg-red-600 text-white hover:bg-opacity-70'}`}

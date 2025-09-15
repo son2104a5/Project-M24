@@ -1,27 +1,33 @@
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "../interface";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { getAllUsers, getHasLoginUser } from "../services/users.service";
 import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const navigate = useNavigate();
-  const userHasLogin = JSON.parse(localStorage.getItem('userHasLogin') as string);
   const [footerUser, setFooterUser] = useState(false);
-  const state = useSelector((state: State) => state.users) || []; // Default to empty array if undefined
-
   const dispatch = useDispatch();
+  const users = useSelector((state: State) => state.users) || [];
+  const userHasLogin = useMemo(() => {
+    try {
+      return JSON.parse(localStorage.getItem('userHasLogin') as string);
+    } catch {
+      return null;
+    }
+  }, []);
+  const user = useMemo(() => users.find((c) => c.email === userHasLogin), [users, userHasLogin]);
+
   useEffect(() => {
     dispatch(getAllUsers());
-    dispatch(getHasLoginUser(user));
-  }, [dispatch]);
+    if (user) {
+      dispatch(getHasLoginUser(user));
+    }
+  }, [dispatch, user]);
 
   const toLogin = () => {
     navigate('/login');
-    localStorage.setItem('userHasLogin', JSON.stringify(''));
   };
-
-  const user = state.find((c) => c.email === userHasLogin);
 
   const handleLogout = () => {
     localStorage.removeItem('userHasLogin');
@@ -43,7 +49,7 @@ const Header = () => {
                 alert('Bạn chưa đăng nhập')
                 toLogin();
               } else {
-                window.location.href = 'favourite'
+                navigate('/favourite')
               }
             }}></i>
             <span className="text-[12px] absolute top-[-3px] bg-red-600 p-[1px] rounded-full w-5 text-center">
@@ -56,7 +62,7 @@ const Header = () => {
                 alert('Bạn chưa đăng nhập')
                 toLogin();
               } else {
-                window.location.href = 'cart'
+                navigate('/cart')
               }
             }}></i>
             <span className="text-[12px] absolute top-[-3px] bg-red-600 p-[1px] rounded-full w-5 text-center">
@@ -76,10 +82,10 @@ const Header = () => {
             )
           }
           <div className={`flex flex-col absolute top-14 right-3 bg-white text-black ${footerUser ? 'block' : 'hidden'} rounded shadow-[0_3px_10px_rgb(0,0,0,0.2)] z-50`}>
-            <a className="hover:bg-blue-400 p-2 rounded hover:text-white" href="profile"><i className="fa-solid fa-user"></i> Thông tin cá nhân</a>
-            <a className="hover:bg-blue-400 p-2 rounded hover:text-white" href="history"><i className="fa-solid fa-clock-rotate-left"></i> Lịch sử giao dịch</a>
-            {user?.role === 'Admin' && <a className="hover:bg-blue-400 p-2 rounded hover:text-white" href='admin'><i className="fa-solid fa-toolbox"></i> Về admin</a>}
-            <a className="hover:bg-blue-400 p-2 rounded hover:text-white" href='login' onClick={handleLogout}><i className="fa-solid fa-right-from-bracket"></i> Đăng xuất</a>
+            <a className="hover:bg-blue-400 p-2 rounded hover:text-white" href="/profile"><i className="fa-solid fa-user"></i> Thông tin cá nhân</a>
+            <a className="hover:bg-blue-400 p-2 rounded hover:text-white" href="/history"><i className="fa-solid fa-clock-rotate-left"></i> Lịch sử giao dịch</a>
+            {user?.role === 'Admin' && <a className="hover:bg-blue-400 p-2 rounded hover:text-white" href='/admin'><i className="fa-solid fa-toolbox"></i> Về admin</a>}
+            <a className="hover:bg-blue-400 p-2 rounded hover:text-white" href='/login' onClick={handleLogout}><i className="fa-solid fa-right-from-bracket"></i> Đăng xuất</a>
           </div>
         </nav>
       </div>

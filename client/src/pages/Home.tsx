@@ -3,7 +3,7 @@ import Footer from '../components/Footer'
 // import Navbar from '../components/Navbar'
 import Banner from '../components/Banner'
 import { useDispatch, useSelector } from 'react-redux'
-import { Category, Product, State } from '../interface'
+import { Category, Product, State, formatVnd } from '../interface'
 import { useEffect, useState } from 'react'
 import { getAllProducts, getProductById } from '../services/products.service'
 import { getAllCategories } from '../services/categories.service'
@@ -18,10 +18,7 @@ export default function Home() {
       setLoading(false);
     }, 2000); // Simulate a loading process for 2 seconds
   }, []);
-  const VND = new Intl.NumberFormat('vi-VN', {
-    style: 'currency',
-    currency: 'VND',
-  });
+  
   const products = useSelector((state: State) => state.products)
   const categories = useSelector((state: State) => state.categories)
   const [productsByCategory, setProductsByCategory] = useState<Product[]>(
@@ -78,7 +75,7 @@ export default function Home() {
                   <img src={product.image} className='w-[170px] h-[170px] mb-2'/>
                   <div>
                     <h2>{product.name}</h2>
-                    <p>{VND.format(product.price)}</p>
+                    <p>{formatVnd(product.price)}</p>
                   </div>
                 </Link>
               ))
